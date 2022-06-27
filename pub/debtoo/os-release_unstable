@@ -5,3 +5,4 @@ VERSION="unstable (Flandre)"
 VERSION_CODENAME="flandre"
 ID=debtoo
 ID_LIKE=debian
+BASE_CODENAME="ceres"
