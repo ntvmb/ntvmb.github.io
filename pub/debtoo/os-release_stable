@@ -5,3 +5,4 @@ VERSION="1 (Reimu)"
 VERSION_CODENAME="reimu"
 ID=debtoo
 ID_LIKE=debian
+BASE_CODENAME="chimaera"
