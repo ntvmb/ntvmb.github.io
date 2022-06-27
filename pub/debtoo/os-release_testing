@@ -5,3 +5,4 @@ VERSION="2 (Cirno)"
 VERSION_CODENAME="cirno"
 ID=debtoo
 ID_LIKE=debian
+BASE_CODENAME="daedalus"
