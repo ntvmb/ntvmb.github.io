@@ -1,0 +1,2 @@
+# List of usernames reserved by the system and relavent system applications
+BAD_NAMES=("root" "daemon" "bin" "sys" "sync" "games" "lp" "man" "mail" "news" "uucp" "proxy" "www-data" "backup" "list" "irc" "gnats" "_apt" "Debian-exim" "messagebus" "avahi-autoipd" "dhcpcd" "nobody")
