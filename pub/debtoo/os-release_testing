@@ -6,3 +6,4 @@ VERSION_CODENAME="cirno"
 ID=debtoo
 ID_LIKE=debian
 BASE_CODENAME="daedalus"
+TESTING=1
