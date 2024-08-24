@@ -6,3 +6,6 @@ layout: prs_wiki
 
 Welcome to the Project Rhythm Song (PRS) format wiki!  
 This is still a work-in-progress so don't expect much just yet.
+
+# Contents
+- [Project Rhythm Song](./project_rhythm_song/)
