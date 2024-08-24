@@ -1,33 +1,34 @@
 ---
 layout: prs_wiki
+table_of_contents:
+    <ul>
+    <li><a href="#project-rhythm-song">(Top)</a></li>
+    <li><a href="#specification">Specification</a><ul>
+    <li><a href="#notes">Notes</a></li>
+    <li><a href="#events">Events</a><ul>
+    <li><a href="#officially-supported-events">Officially supported events</a><ul>
+    <li><a href="#bass_solo">bass_solo</a></li>
+    <li><a href="#bre-duration">bre</a></li>
+    <li><a href="#drum_solo">drum_solo</a></li>
+    <li><a href="#guitar_solo">guitar_solo</a></li>
+    <li><a href="#lyric-lyrics">lyric</a></li></ul></li>
+    <li><a href="#special-events">Special events</a><ul>
+    <li><a href="#artist-a">ARTIST</a></li>
+    <li><a href="#bpm-n">bpm</a></li>
+    <li><a href="#name-n">NAME</a></li>
+    <li><a href="#ts-num-den">ts</a></li></ul></li></ul></li></ul></li>
+    <li><a href="#changelog">Changelog</a><ul>
+    <li><a href="#prsv14">PRSv1.4</a></li>
+    <li><a href="#prsv13">PRSv1.3</a></li>
+    <li><a href="#prsv12">PRSv1.2</a></li>
+    <li><a href="#prsv11">PRSv1.1</a></li>
+    <li><a href="#prsv10">PRSv1.0</a></li></ul></li>
+    </ul>
 ---
 
 # Project Rhythm Song
 
 Project Rhythm Song (PRS) is the primary chart format for Project Rhythm. All charts in the game are expected to be in this format.
-
-# Contents
-
-- [Specification](#specification)
-    - [Notes](#notes)
-    - [Events](#events)
-        - [Officially supported events](#officially-supported-events)
-            - [bass_solo](#bass_solo)
-            - [bre](#bre-duration)
-            - [drum_solo](#drum_solo)
-            - [guitar_solo](#guitar_solo)
-            - [lyric](#lyric-lyrics)
-        - [Special events](#special-events)
-            - [ARTIST](#artist-a)
-            - [bpm](#bpm-n)
-            - [NAME](#name-n)
-            - [ts](#ts-num-den)
-- [Changelog](#changelog)
-    - [PRSv1.4](#prsv14)
-    - [PRSv1.3](#prsv13)
-    - [PRSv1.2](#prsv12)
-    - [PRSv1.1](#prsv11)
-    - [PRSv1.0](#prsv10)
 
 # Specification
 
