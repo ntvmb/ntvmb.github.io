@@ -47,7 +47,7 @@ Note objects are exactly 4 digits long, each of which is either a 0 or a 1. This
 1000 1010 2
 ```
 
-The above example creates a green-yellow chord with length 2 at timestamp `1000`. To create a 4-note chord, the fret mask would be `1111`. Avoid creating notes with a fret mask of `0000`; it will result in undefined behavior. Also avoid creating notes with a fret mask that any digit other than 0 or 1. Decimal representations of fret masks are not supported.  
+The above example creates a green-yellow chord with length 2 at timestamp `1000`. To create a 4-note chord, the fret mask would be `1111`. Avoid creating notes with a fret mask of `0000`; it will result in undefined behavior. Also avoid creating notes with a fret mask with any digit other than 0 or 1. Decimal representations of fret masks are not supported.  
 Right: `12375 1001 0`  
 Wrong: `12375 9 0`
 
@@ -100,7 +100,7 @@ Set the song artist to `a`, where `a` can be any string. This event must be at p
 
 New in PRSv1.1.
 
-Set the tempo to `n` beats per minute. `n` can be any floating point value, except for (-)Infinity, NaN, and (-)0.
+Set the tempo to `n` beats per minute. `n` can be any floating point value, except for (-)Infinity, [NaN](https://en.wikipedia.org/wiki/NaN), and (-)0.
 
 #### `NAME n`
 
@@ -120,13 +120,13 @@ Example: `ts 4 2` sets the time signature to 4/4.
 ## PRSv1.4
 
 - New event: `lyric`
-- First supported in: Project Rhythm beta 6
+- First supported in: Project Rhythm v0.6.73
     - Since this is not a special event, separate support did not need to be added for PRSEdit.
 
 ## PRSv1.3
 
 - New special events: `ARTIST` and `NAME`
-- First supported in: Project Rhythm beta 5 and PRSEdit v1.1.39
+- First supported in: Project Rhythm v0.5.59 and PRSEdit v1.1.39
 
 ## PRSv1.2
 
@@ -136,7 +136,7 @@ Example: `ts 4 2` sets the time signature to 4/4.
 ## PRSv1.1
 
 - New special events: `bpm` and `ts`
-- First supported in: Project Rhythm beta 3 and PRSEdit v1.0
+- First supported in: Project Rhythm v0.3.35 and PRSEdit v0.1.19
 
 ## PRSv1.0
 
