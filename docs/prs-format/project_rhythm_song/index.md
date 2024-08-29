@@ -11,7 +11,8 @@ table_of_contents:
     <li><a href="#bre-duration">bre</a></li>
     <li><a href="#drum_solo">drum_solo</a></li>
     <li><a href="#guitar_solo">guitar_solo</a></li>
-    <li><a href="#lyric-lyrics">lyric</a></li></ul></li>
+    <li><a href="#lyric-lyrics">lyric</a></li>
+    <li><a href="#solo_end">solo_end</a></li></ul></li>
     <li><a href="#special-events">Special events</a><ul>
     <li><a href="#artist-a">ARTIST</a></li>
     <li><a href="#bpm-n">bpm</a></li>
@@ -22,6 +23,7 @@ table_of_contents:
     <li><a href="#prsv13">PRSv1.3</a></li>
     <li><a href="#prsv12">PRSv1.2</a></li>
     <li><a href="#prsv11">PRSv1.1</a></li>
+    <li><a href="#prsv101">PRSv1.0.1</a></li>
     <li><a href="#prsv10">PRSv1.0</a></li></ul></li>
     </ul>
 ---
@@ -32,12 +34,12 @@ Project Rhythm Song (PRS) is the primary chart format for Project Rhythm. All ch
 
 # Specification
 
-The PRS format is a columnar format. Columns are separated by no more than one space. Tabs are not supported, because it would make 0 a delimiter as well, which we obviously don't want. (see image below for why)  
+The PRS format is a columnar format. Columns are separated a **single space**. Tabs are not supported, because it would make 0 a delimiter as well, which we obviously don't want. (see image below for why)  
 ![The tab character equals 0 in JavaScript.](tab-equals-0.png)
 
 As for the columns themselves, the first column denotes the timestamp (in milliseconds) at which the note or event will occur. Integers are preferred, though floating point values are supported. Since PRSv1.2, comments have been officially supported. The parser shall ignore any line where the first column has a value that's not a number. This includes blank lines.
 
-The second column is treated differently depending on its value. Any integer value is treated as a note. In this case, the third column is the length of the note, in hundredths of a second. Any other type of value is treated as an event. Any column after the event is treated as an argument.
+The second column is treated differently depending on its value. Any integer value is treated as a note. In that case, the third column is the length of the note, in hundredths of a second. Any other type of value is treated as an event. Any column after the event is treated as an argument.
 
 ## Notes
 
@@ -100,7 +102,7 @@ Set the song artist to `a`, where `a` can be any string. This event must be at p
 
 New in PRSv1.1.
 
-Set the tempo to `n` beats per minute. `n` can be any floating point value, except for (-)Infinity, [NaN](https://en.wikipedia.org/wiki/NaN), and (-)0.
+Set the tempo to `n` beats per minute. `n` can be any floating point value greater than 0, except for Infinity.
 
 #### `NAME n`
 
@@ -131,12 +133,16 @@ Example: `ts 4 2` sets the time signature to 4/4.
 ## PRSv1.2
 
 - Added comments
-- First supported in: Project Rhythm beta 4 and PRSEdit v1.1.39.2
+- First supported in: Project Rhythm v0.4.51 and PRSEdit v1.1.39.2
 
 ## PRSv1.1
 
 - New special events: `bpm` and `ts`
 - First supported in: Project Rhythm v0.3.35 and PRSEdit v0.1.19
+
+## PRSv1.0.1
+
+- Changed delimiter to space
 
 ## PRSv1.0
 
