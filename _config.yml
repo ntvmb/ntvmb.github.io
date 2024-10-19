@@ -3,6 +3,7 @@ plugins:
 - jekyll-remote-theme
 include:
 - .well-known
+- favicon.ico
 title: Virtual Nate's website
 description: A site for some of my random things.
 show_downloads: false

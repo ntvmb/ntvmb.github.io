@@ -1,7 +1,7 @@
 ---
 table_of_contents:
     <ul>
-    <li><a href="#project-rhythm-package">(Top)</a></li>
+    <li><a href="#">(Top)</a></li>
     <li><a href="#structure">Structure</a></li>
     <li><a href="#purpose">Purpose</a></li>
     </ul>
