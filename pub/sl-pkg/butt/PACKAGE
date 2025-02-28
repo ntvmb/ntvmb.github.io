@@ -2,7 +2,7 @@ NAME=butt
 VERSION=1.44.0-1
 ABSOLUTE_VERSION=76800
 RELEASE_DATE=2025-01-17
-DESCRIPTION=Broadcast Using This Tool
+DESCRIPTION="Broadcast Using This Tool"
 URL="https://danielnoethen.de/butt/release/1.44.0/butt-1.44.0-1.tar.gz"
 DEPENDS=(fltk-1.3 portaudio19 libmp3lame libvorbis libogg libflac libopus libsamplerate libdbus-1 libcurl libssl portmidi)
 OPTDEPENDS=(libfdk-aac)
@@ -30,6 +30,5 @@ postinst() {
 }
 
 detect() {
-    declare -g VERSION=$($NAME -v | awk '{ print $2; }')-1
-    return $?
+    declare -g VERSION=$($NAME -v | awk '{ print $2; }')-1 || return 1
 }
