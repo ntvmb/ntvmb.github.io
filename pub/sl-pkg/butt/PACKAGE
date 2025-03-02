@@ -30,6 +30,6 @@ postinst() {
 }
 
 detect() {
-    OUT=$($NAME -v) || return 1
+    OUT=$(butt -v) || return 1
     declare -g VERSION="$($OUT | awk '{ print $2; }')-1"
 }
