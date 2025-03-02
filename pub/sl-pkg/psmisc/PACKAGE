@@ -1,0 +1,35 @@
+NAME=psmisc
+DESCRIPTION="Miscellaneous procfs utils"
+VERSION="23.7"
+ABOSULTE_VERSION=5895
+URL="https://sourceforge.net/projects/psmisc/files/psmisc/psmisc-23.7.tar.xz"
+BUILD_DEPENDS=(make gcc binutils)
+DEPENDS=(glibc ncurses)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    ./configure --prefix=/usr
+    return $?
+}
+
+build() {
+    make || return 1
+    make check
+    return $?
+}
+
+do_install() {
+    make install
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    OUT=$(fuser --version) || return 1
+    declare -g VERSION=$(echo $OUT | head -n 1 | awk '{ print $3; }')
+}

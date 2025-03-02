@@ -1,0 +1,42 @@
+NAME=texinfo
+DESCRIPTION="Documentation system for online information and printed output"
+VERSION="7.1"
+ABOSULTE_VERSION=459008
+URL="https://ftp.gnu.org/gnu/texinfo/texinfo-7.1.tar.xz"
+BUILD_DEPENDS=(make)
+DEPENDS=(perl libxml-parser-perl)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    ./configure --prefix=/usr
+    return $?
+}
+
+build() {
+    make || return 1
+    make check
+    return $?
+}
+
+do_install() {
+    make install
+    make TEXMF=/usr/share/texmf install-tex
+    return $?
+}
+
+postinst() {
+    pushd /usr/share/info
+        rm -v dir
+        for f in *
+            do install-info $f dir 2>/dev/null
+        done
+    popd
+    return 0
+}
+
+detect() {
+    OUT=$(install-info --version) || return 1
+    declare -g VERSION=$(echo $OUT | head -n 1 | awk '{ print $4; }')
+}

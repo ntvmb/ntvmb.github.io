@@ -1,0 +1,51 @@
+NAME=libgmp
+TAR_NAME=gmp
+DESCRIPTION="GNU MP -- Multiprecision arithmetic library"
+VERSION="6.3.0"
+ABOSULTE_VERSION=393984
+URL="https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz"
+BUILD_DEPENDS=(make gcc binutils)
+DEPENDS=(glibc)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    ./configure --prefix=/usr    \
+                --enable-cxx     \
+                --disable-static \
+                --docdir=/usr/share/doc/gmp-6.3.0
+    return $?
+}
+
+build() {
+    make || return 1
+    make html
+    make check 2>&1 | tee gmp-check-log
+    PASS_COUNT=$(awk '/# PASS:/{total+=$3} ; END{print total}' gmp-check-log)
+    if [ $PASS_COUNT -ge 199 ]; then
+        return 0
+    fi
+    return 1
+}
+
+do_install() {
+    make install
+    make install-html
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    if [ ! -f /usr/lib/libgmp.so ]; then
+        return 1
+    fi
+    declare -g VERSION=$(
+        find /usr/share/doc/gmp-* -maxdepth 0 |
+            tail -n 1 |
+            awk -F"-" '{ print $2; }'
+    )
+}

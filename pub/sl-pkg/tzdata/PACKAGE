@@ -1,0 +1,47 @@
+NAME=tzdata
+DESCRIPTION="IANA time zone data"
+VERSION="2024a"
+ABOSULTE_VERSION=32385
+URL="https://www.iana.org/time-zones/repository/releases/tzdata2024a.tar.gz"
+BUILD_DEPENDS=()
+DEPENDS=(glibc)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    return 0
+}
+
+build() {
+    return 0
+}
+
+do_install() {
+    ZONEINFO=/usr/share/zoneinfo
+    mkdir -pv $ZONEINFO/{posix,right}
+
+    for tz in etcetera southamerica northamerica europe africa antarctica  \
+            asia australasia backward; do
+        zic -L /dev/null   -d $ZONEINFO       ${tz}
+        zic -L /dev/null   -d $ZONEINFO/posix ${tz}
+        zic -L leapseconds -d $ZONEINFO/right ${tz}
+    done
+
+    cp -v zone.tab zone1970.tab iso3166.tab $ZONEINFO
+    zic -d $ZONEINFO -p America/New_York
+    unset ZONEINFO
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    if [ -d /usr/share/zoneinfo/posix ]; then
+        return 0
+    else
+        return 1
+    fi
+}

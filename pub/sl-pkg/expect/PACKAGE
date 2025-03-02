@@ -1,0 +1,42 @@
+NAME=expect
+DESCRIPTION="Automates interactive applications"
+VERSION="5.45.4"
+ABOSULTE_VERSION=339204
+URL="https://prdownloads.sourceforge.net/expect/expect5.45.4.tar.gz"
+BUILD_DEPENDS=(make gcc binutils)
+DEPENDS=(glibc tcl)
+OPTDEPENDS=()
+PATCHES=("https://www.linuxfromscratch.org/patches/lfs/12.2/expect-5.45.4-gcc14-1.patch")
+METAPACKAGE=false
+
+prepare() {
+    patch -Np1 -i ../expect-5.45.4-gcc14-1.patch
+    ./configure --prefix=/usr           \
+                --with-tcl=/usr/lib     \
+                --enable-shared         \
+                --disable-rpath         \
+                --mandir=/usr/share/man \
+                --with-tclinclude=/usr/include
+    return $?
+}
+
+build() {
+    make || return 1
+    make test
+    return $?
+}
+
+do_install() {
+    make install
+    ln -svf expect$VERSION/libexpect$VERSION.so /usr/lib
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    OUT=$(expect -v) || return 1
+    declare -g VERSION=$(echo $OUT | awk '{ print $3; }')
+}

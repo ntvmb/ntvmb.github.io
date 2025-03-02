@@ -1,0 +1,48 @@
+NAME=vim
+DESCRIPTION="Vi IMproved - enhanced vi editor"
+VERSION="9.1.1115"
+ABOSULTE_VERSION=151061595
+URL="https://github.com/vim/vim/archive/refs/tags/v9.1.1115.tar.gz"
+BUILD_DEPENDS=(make gcc binutils)
+DEPENDS=(glibc acl ncurses)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    echo '#define SYS_VIMRC_FILE "/etc/vimrc"' >> src/feature.h
+    ./configure --prefix=/usr
+    return $?
+}
+
+build() {
+    make || return 1
+    chown -R tester .
+    su tester -c "TERM=xterm-256color LANG=en_US.UTF-8 make -j1 test" \
+        &> vim-test.log
+    if grep -q "ALL DONE" vim-test.log; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+do_install() {
+    make install
+    return $?
+}
+
+postinst() {
+    ln -sv vim /usr/bin/vi
+    for L in  /usr/share/man/{,*/}man1/vim.1; do
+        ln -sv vim.1 $(dirname $L)/vi.1
+    done
+    ln -sv ../vim/vim91/doc /usr/share/doc/vim-$VERSION
+    return 0
+}
+
+detect() {
+    # somehow vim manages to be worse than perl when it comes to this
+    OUT=$(vim --version) || return 1
+    declare -g VERSION=$(vim --version | head -n 1 | awk '{ print $5; }').$(printf %04d $(vim --version | head -n 2 | tail -n 1 | awk '{ print $3; }' | cut -d"-" -f 2))
+}

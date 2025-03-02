@@ -1,0 +1,79 @@
+NAME=linux
+DESCRIPTION="Linux kernel"
+VERSION="6.13.5"
+ABOSULTE_VERSION=396549
+URL="https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.13.5.tar.xz"
+BUILD_DEPENDS=(make gcc binutils bc bison flex gzip libelf ncurses openssl perl zstd xz gettext)
+DEPENDS=(kmod)
+OPTDEPENDS=(grub linux-headers)
+PATCHES=()
+METAPACKAGE=false
+REQUIRES_MANUAL_INTERACTION=true
+
+prepare() {
+    chown -R root:root .
+    make mrproper
+    echo "how should I configure the kernel?"
+    echo "1) use current configuration"
+    echo "2) edit current configuration"
+    echo "3) make a new configuration"
+    echo "4) abort"
+    read choice
+    case $choice in
+        1)
+            cp -v /boot/config-$(uname -r) ./.config
+            if [ $? -ne 0 ]; then
+                echo "error: failed to copy configuration"
+                return 1
+            fi
+            make olddefconfig
+            return $?
+            ;;
+        2)
+            cp -v /boot/config-$(uname -r) ./.config
+            if [ $? -ne 0 ]; then
+                echo "error: failed to copy configuration"
+                return 1
+            fi
+            make oldconfig
+            return $?
+            ;;
+        3)
+            make defconfig || return 1
+            make menuconfig
+            return $?
+            ;;
+        *)
+            return 1
+            ;;
+    esac
+    if [ ! -f .config ]; then
+        echo "error: no config found"
+        return 1
+    fi
+    return 0
+}
+
+build() {
+    make || return 1
+    return $?
+}
+
+do_install() {
+    make modules_install || return 1
+    # make install will complain about not being able to find LILO
+    # but even then it will still return 0
+    make INSTALL_PATH=/boot install || return 1
+    cp -iv .config /boot/config
+    cp -r Documentation -T /usr/share/doc/linux-$VERSION
+    return 0
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    OUT=$(file /boot/vmlinuz) || return 1
+    declare -g VERSION=$(echo $OUT | awk '{ print $9; }' | cut -d"-" -f1)
+}

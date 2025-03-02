@@ -1,0 +1,42 @@
+NAME=ninja
+DESCRIPTION="small build system closest in spirit to Make"
+VERSION="1.12.1"
+ABOSULTE_VERSION=68609
+URL="https://github.com/ninja-build/ninja/archive/v1.12.1/ninja-1.12.1.tar.gz"
+BUILD_DEPENDS=(python)
+DEPENDS=(glibc gcc)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    # allow ninja to recognize the NINJAJOBS environment variable
+    sed -i '/int Guess/a \
+    int   j = 0;\
+    char* jobs = getenv( "NINJAJOBS" );\
+    if ( jobs != NULL ) j = atoi( jobs );\
+    if ( j > 0 ) return j;\
+    ' src/ninja.cc
+    return $?
+}
+
+build() {
+    python3 configure.py --bootstrap
+    return $?
+}
+
+do_install() {
+    install -vm755 ninja /usr/bin/
+    install -vDm644 misc/bash-completion /usr/share/bash-completion/completions/ninja
+    install -vDm644 misc/zsh-completion  /usr/share/zsh/site-functions/_ninja
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    OUT=$(ninja --version) || return 1
+    declare -g VERSION=$OUT
+}

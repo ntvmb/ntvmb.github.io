@@ -1,0 +1,38 @@
+NAME=libcap
+DESCRIPTION="POSIX 1003.1e capabilities (library)"
+VERSION="2.70"
+ABOSULTE_VERSION=582
+URL="https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-2.70.tar.xz"
+BUILD_DEPENDS=(make gcc binutils)
+DEPENDS=(glibc)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    sed -i '/install -m.*STA/d' libcap/Makefile
+    return $?
+}
+
+build() {
+    make prefix=/usr lib=lib || return 1
+    make test
+    return $?
+}
+
+do_install() {
+    make install
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    if [ ! -f /usr/lib/libcap.so ]; then
+        return 1
+    else
+        declare -g VERSION=$(readlink -f /usr/lib/libelf.so | tail -c +20)
+    fi
+}

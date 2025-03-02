@@ -1,0 +1,35 @@
+NAME=file
+DESCRIPTION='Recognize the type of data in a file using "magic" numbers'
+VERSION="5.45"
+ABOSULTE_VERSION=1325
+URL="https://astron.com/pub/file/file-5.45.tar.gz"
+BUILD_DEPENDS=(make gcc binutils)
+DEPENDS=(glibc)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    ./configure --prefix=/usr
+    return $?
+}
+
+build() {
+    make || return 1
+    make check
+    return $?
+}
+
+do_install() {
+    make install
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    OUT=$(file --version) || return 1
+    declare -g VERSION=$(echo $OUT | head -n 1 | awk -F"-" '{ print $2; }')
+}

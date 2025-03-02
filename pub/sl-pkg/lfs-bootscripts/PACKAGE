@@ -1,0 +1,36 @@
+NAME=lfs-bootscripts
+DESCRIPTION="SysV boot scripts for LFS"
+VERSION=20240825
+ABOSULTE_VERSION=$VERSION
+URL="https://www.linuxfromscratch.org/lfs/downloads/12.2/lfs-bootscripts-20240825.tar.xz"
+BUILD_DEPENDS=(make)
+DEPENDS=()
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    return 0
+}
+
+build() {
+    return 0
+}
+
+do_install() {
+    make install
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    if [ -x /etc/init.d/udev ]; then
+        sl-pkg detect sysvinit
+        return $?
+    else
+        return 1
+    fi
+}

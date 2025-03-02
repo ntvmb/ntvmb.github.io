@@ -1,0 +1,42 @@
+NAME=libxml-parser-perl
+DESCRIPTION="Perl module for parsing XML files"
+VERSION="2.47"
+ABOSULTE_VERSION=559
+URL="https://cpan.metacpan.org/authors/id/T/TO/TODDR/XML-Parser-2.47.tar.gz"
+BUILD_DEPENDS=(make gcc binutils)
+DEPENDS=(perl glibc expat)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    perl Makefile.PL
+    return $?
+}
+
+build() {
+    make || return 1
+    make test
+    return $?
+}
+
+do_install() {
+    make install
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    cat <<"EOF">check.pl
+use strict;
+require XML::Parser;
+
+print $XML::Parser::VERSION;
+EOF
+    OUT=$(perl check.pl) || (rm check.pl; return 1)
+    rm check.pl
+    declare -g VERSION=$OUT
+}

@@ -1,0 +1,52 @@
+NAME=util-linux
+DESCRIPTION="Various system utilities"
+VERSION="2.40.2"
+ABOSULTE_VERSION=141314
+URL="https://www.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.2.tar.xz"
+BUILD_DEPENDS=(make gcc binutils)
+DEPENDS=(glibc libcap libxcrypt ncurses)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+ESSENTIAL=true
+
+prepare() {
+    ./configure --bindir=/usr/bin     \
+                --libdir=/usr/lib     \
+                --runstatedir=/run    \
+                --sbindir=/usr/sbin   \
+                --disable-chfn-chsh   \
+                --disable-login       \
+                --disable-nologin     \
+                --disable-su          \
+                --disable-setpriv     \
+                --disable-runuser     \
+                --disable-pylibmount  \
+                --disable-liblastlog2 \
+                --disable-static      \
+                --without-python      \
+                --without-systemd     \
+                --without-systemdsystemunitdir        \
+                ADJTIME_PATH=/var/lib/hwclock/adjtime \
+                --docdir=/usr/share/doc/util-linux-$VERSION
+    return $?
+}
+
+build() {
+    make
+    return $?
+}
+
+do_install() {
+    make install
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    OUT=$(mount --version) || return 1
+    declare -g VERSION=$(echo $OUT | awk '{ print $4; }')
+}

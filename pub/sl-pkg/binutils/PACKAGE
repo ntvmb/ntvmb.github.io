@@ -1,0 +1,70 @@
+NAME=binutils
+DESCRIPTION="GNU assembler, linker, and binary utilities."
+VERSION="2.43.1"
+ABOSULTE_VERSION=142081
+URL="https://sourceware.org/pub/binutils/releases/binutils-2.43.1.tar.xz"
+BUILD_DEPENDS=(make)
+DEPENDS=(glibc gcc)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+ESSENTIAL=true
+REQUIRES_MANUAL_INTERACTION=true
+
+prepare() {
+    mkdir build
+    cd build
+    ../configure --prefix=/usr       \
+                 --sysconfdir=/etc   \
+                 --enable-gold       \
+                 --enable-ld=default \
+                 --enable-plugins    \
+                 --enable-shared     \
+                 --disable-werror    \
+                 --enable-64-bit-bfd \
+                 --enable-new-dtags  \
+                 --with-system-zlib  \
+                 --enable-default-hash-style=gnu
+    return $?
+}
+
+build() {
+    make tooldir=/usr || return 1
+    make -k check
+    if [ $? -ne 0 ]; then
+        echo "warning: some tests failed"
+        echo "please refer to section 8.20 of the LFS book"
+        read -p "review test failures? " yn
+        case $yn in
+            [yY]*)
+                grep '^FAIL:' $(find -name '*.log')
+                ;;
+            *)
+                ;;
+        esac
+    fi
+    return 0
+}
+
+do_install() {
+    read -p "continue with installation? " yn
+    case $yn in
+        [yY]*)
+            make tooldir=/usr install
+            return $?
+            ;;
+        *)
+            return 1
+            ;;
+    esac
+}
+
+postinst() {
+    rm -fv /usr/lib/lib{bfd,ctf,ctf-nobfd,gprofng,opcodes,sframe}.a
+    return 0
+}
+
+detect() {
+    OUT=$(readelf --version) || return 1
+    declare -g VERSION=$(echo $OUT | head -n 1 | awk '{ print $5; }')
+}

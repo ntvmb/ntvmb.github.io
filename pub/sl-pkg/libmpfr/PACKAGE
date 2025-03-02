@@ -1,0 +1,44 @@
+NAME=libmpfr
+TAR_NAME=mpfr
+DESCRIPTION="Multiprecision floating-point computation"
+VERSION="4.2.1"
+ABOSULTE_VERSION=262657
+URL="https://ftp.gnu.org/gnu/mpfr/mpfr-4.2.1.tar.xz"
+BUILD_DEPENDS=(make gcc binutils)
+DEPENDS=(glibc libgmp)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    ./configure --prefix=/usr        \
+                --disable-static     \
+                --enable-thread-safe \
+                --docdir=/usr/share/doc/mpfr-$VERSION
+    return $?
+}
+
+build() {
+    make || return 1
+    make html
+    make check
+    return $?
+}
+
+do_install() {
+    make install || return 1
+    make install-html
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    if [ -f /usr/lib/libmpfr.so ]; then
+        return 0
+    else
+        return 1
+    fi
+}

@@ -1,0 +1,35 @@
+NAME=gperf
+DESCRIPTION="Perfect hash function generator"
+VERSION="3.1"
+ABOSULTE_VERSION=769
+URL="https://ftp.gnu.org/gnu/gperf/gperf-3.1.tar.gz"
+BUILD_DEPENDS=(make binutils)
+DEPENDS=(glibc gcc)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    ./configure --prefix=/usr --docdir=/usr/share/doc/gperf-$VERSION
+    return $?
+}
+
+build() {
+    make || return 1
+    make -j1 check
+    return $?
+}
+
+do_install() {
+    make install
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    OUT=$(gperf --version) || return 1
+    declare -g VERSION=$(echo $OUT | head -n 1 | awk '{ print $3; }')
+}

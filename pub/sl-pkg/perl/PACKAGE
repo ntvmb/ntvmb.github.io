@@ -1,0 +1,69 @@
+NAME=perl
+DESCRIPTION="Perl scripting language"
+VERSION="5.40.0"
+ABOSULTE_VERSION=337920
+URL="https://www.cpan.org/src/5.0/perl-5.40.0.tar.xz"
+BUILD_DEPENDS=(make gcc binutils)
+DEPENDS=(glibc libxcrypt)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    export BUILD_ZLIB=False
+    export BUILD_BZIP2=0
+    sh Configure -des                                          \
+                 -D prefix=/usr                                \
+                 -D vendorprefix=/usr                          \
+                 -D privlib=/usr/lib/perl5/5.40/core_perl      \
+                 -D archlib=/usr/lib/perl5/5.40/core_perl      \
+                 -D sitelib=/usr/lib/perl5/5.40/site_perl      \
+                 -D sitearch=/usr/lib/perl5/5.40/site_perl     \
+                 -D vendorlib=/usr/lib/perl5/5.40/vendor_perl  \
+                 -D vendorarch=/usr/lib/perl5/5.40/vendor_perl \
+                 -D man1dir=/usr/share/man/man1                \
+                 -D man3dir=/usr/share/man/man3                \
+                 -D pager="/usr/bin/less -isR"                 \
+                 -D useshrplib                                 \
+                 -D usethreads
+    return $?
+}
+
+build() {
+    make || return 1
+    echo "note: the test suite is expensive"
+    read -p "run test suite? " yn
+    case $yn in
+        [yY]*)
+            TEST_JOBS=$(nproc) make test_harness
+            return $?
+            ;;
+        *)
+            return 0
+            ;;
+    esac
+}
+
+do_install() {
+    make install
+    return $?
+}
+
+postinst() {
+    unset BUILD_ZLIB BUILD_BZIP2
+    return 0
+}
+
+detect() {
+    OUT=$(perl --version) || return 1
+    # a lot of fuckery needs to be done here just to parse the version number
+    # thanks larry
+    declare -g VERSION=$(
+        echo $OUT |
+        head -n 2 |
+        tail -n 1 |
+        awk '{ print $9; }' |
+        tail -c +3 |
+        head -c -2
+    )
+}

@@ -1,0 +1,43 @@
+NAME=libelf
+TAR_NAME=elfutils
+DESCRIPTION="Library to read and write ELF files"
+VERSION="0.191"
+ABOSULTE_VERSION=191
+URL="https://sourceware.org/ftp/elfutils/0.191/elfutils-0.191.tar.bz2"
+BUILD_DEPENDS=(make gcc binutils bzip2)
+DEPENDS=(glibc zstd zlib)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    ./configure --prefix=/usr                \
+                --disable-debuginfod         \
+                --enable-libdebuginfod=dummy
+    return $?
+}
+
+build() {
+    make || return 1
+    make check
+    return $?
+}
+
+do_install() {
+    make -C libelf install
+    install -vm644 config/libelf.pc /usr/lib/pkgconfig
+    return $?
+}
+
+postinst() {
+    rm /usr/lib/libelf.a
+    return 0
+}
+
+detect() {
+    if [ ! -f /usr/lib/libelf.so ]; then
+        return 1
+    else
+        declare -g VERSION=$(readlink -f /usr/lib/libelf.so | tail -c +17 | head -c -4)
+    fi
+}

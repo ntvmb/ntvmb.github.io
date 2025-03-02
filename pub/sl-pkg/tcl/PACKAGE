@@ -1,0 +1,63 @@
+NAME=tcl
+DESCRIPTION="The Tool Command Language"
+VERSION="8.6.14"
+ABOSULTE_VERSION=525838
+URL="https://downloads.sourceforge.net/tcl/tcl8.6.14-src.tar.gz"
+BUILD_DEPENDS=(make gcc binutils)
+DEPENDS=(glibc)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    declare -g SRCDIR=$(pwd)
+    cd unix
+    ./configure --prefix=/usr           \
+                --mandir=/usr/share/man \
+                --disable-rpath
+    return $?
+}
+
+build() {
+    make || return 1
+
+    sed -e "s|$SRCDIR/unix|/usr/lib|" \
+        -e "s|$SRCDIR|/usr/include|"  \
+        -i tclConfig.sh
+
+    sed -e "s|$SRCDIR/unix/pkgs/tdbc1.1.7|/usr/lib/tdbc1.1.7|" \
+        -e "s|$SRCDIR/pkgs/tdbc1.1.7/generic|/usr/include|"    \
+        -e "s|$SRCDIR/pkgs/tdbc1.1.7/library|/usr/lib/tcl8.6|" \
+        -e "s|$SRCDIR/pkgs/tdbc1.1.7|/usr/include|"            \
+        -i pkgs/tdbc1.1.7/tdbcConfig.sh
+
+    sed -e "s|$SRCDIR/unix/pkgs/itcl4.2.4|/usr/lib/itcl4.2.4|" \
+        -e "s|$SRCDIR/pkgs/itcl4.2.4/generic|/usr/include|"    \
+        -e "s|$SRCDIR/pkgs/itcl4.2.4|/usr/include|"            \
+        -i pkgs/itcl4.2.4/itclConfig.sh
+
+    unset SRCDIR
+    make test
+    return $?
+}
+
+do_install() {
+    make install
+    make install-private-headers
+    return $?
+}
+
+postinst() {
+    chmod -v u+w /usr/lib/libtcl8.6.so
+    ln -sfv tclsh8.6 /usr/bin/tclsh
+    mv /usr/share/man/man3/{Thread,Tcl_Thread}.3
+    return 0
+}
+
+detect() {
+    if tclsh8.6 <<< "expr 1 + 1"; then
+        return 0
+    else
+        return 1
+    fi
+}

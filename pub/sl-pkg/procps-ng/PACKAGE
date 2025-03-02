@@ -1,0 +1,37 @@
+NAME=procps-ng
+DESCRIPTION="/proc file system utilities"
+VERSION="4.0.4"
+ABOSULTE_VERSION=262148
+URL="https://sourceforge.net/projects/procps-ng/files/Production/procps-ng-4.0.4.tar.xz"
+BUILD_DEPENDS=(make gcc binutils)
+DEPENDS=(glibc ncurses)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    ./configure --prefix=/usr                           \
+                --docdir=/usr/share/doc/procps-ng-4.0.4 \
+                --disable-static                        \
+                --disable-kill
+    return $?
+}
+
+build() {
+    make
+    return $?
+}
+
+do_install() {
+    make install
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    OUT=$(free -V) || return 1
+    declare -g VERSION=$(echo $OUT | awk '{ print $4; }')
+}

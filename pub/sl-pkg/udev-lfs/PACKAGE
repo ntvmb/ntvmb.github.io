@@ -1,0 +1,35 @@
+NAME=udev-lfs
+DESCRIPTION="Custom udev rules for LFS systems"
+VERSION=20230818
+ABOSULTE_VERSION=$VERSION
+URL="https://anduin.linuxfromscratch.org/LFS/udev-lfs-20230818.tar.xz"
+BUILD_DEPENDS=()
+DEPENDS=()
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    return 0
+}
+
+build() {
+    return 0
+}
+
+do_install() {
+    make -f Makefile.lfs install
+    return 0
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    if [ -f /etc/udev/rules.d/*-lfs.rules ]; then
+        return 0
+    else
+        return 1
+    fi
+}

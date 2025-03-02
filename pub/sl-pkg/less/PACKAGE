@@ -1,0 +1,35 @@
+NAME=less
+DESCRIPTION="Pager program similar to more"
+VERSION=661
+ABOSULTE_VERSION=$VERSION
+URL="https://www.greenwoodsoftware.com/less/less-661.tar.gz"
+BUILD_DEPENDS=(make gcc binutils)
+DEPENDS=(glibc ncurses)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    ./configure --prefix=/usr --sysconfdir=/etc
+    return $?
+}
+
+build() {
+    make || return 1
+    make check
+    return $?
+}
+
+do_install() {
+    make install
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    OUT=$(less --version) || return 1
+    declare -g VERSION=$(echo $OUT | head -n 1 | awk '{ print $2; }')
+}

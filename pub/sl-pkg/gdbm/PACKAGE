@@ -1,0 +1,37 @@
+NAME=gdbm
+DESCRIPTION="GNU Database Manager"
+VERSION="1.24"
+ABOSULTE_VERSION=280
+URL="https://ftp.gnu.org/gnu/gdbm/gdbm-1.24.tar.gz"
+BUILD_DEPENDS=(make gcc binutils)
+DEPENDS=(glibc readline)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    ./configure --prefix=/usr    \
+                --disable-static \
+                --enable-libgdbm-compat
+    return $?
+}
+
+build() {
+    make || return 1
+    make check
+    return $?
+}
+
+do_install() {
+    make install
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    OUT=$(gdbmtool --version) || return 1
+    declare -g VERSION=$(echo $OUT | head -n 1 | awk '{ print $3; }')
+}

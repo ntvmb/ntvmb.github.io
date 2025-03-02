@@ -1,0 +1,41 @@
+NAME=dejagnu
+DESCRIPTION="framework for running test suites on software tools"
+VERSION="1.6.3"
+ABOSULTE_VERSION=67075
+URL="https://ftp.gnu.org/gnu/dejagnu/dejagnu-1.6.3.tar.gz"
+BUILD_DEPENDS=(make texinfo)
+DEPENDS=(expect)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    mkdir build
+    cd build
+    ../configure --prefix=/usr
+    makeinfo --html --no-split -o doc/dejagnu.html ../doc/dejagnu.texi
+    makeinfo --plaintext       -o doc/dejagnu.txt  ../doc/dejagnu.texi
+    return $?
+}
+
+build() {
+    make check
+    return $?
+}
+
+do_install() {
+    make install
+    return $?
+}
+
+postinst() {
+    install -v -dm755  /usr/share/doc/dejagnu-1.6.3
+    install -v -m644   doc/dejagnu.{html,txt} /usr/share/doc/dejagnu-1.6.3
+    cd ..
+    return 0
+}
+
+detect() {
+    OUT=$(runtest --version) || return 1
+    declare -g VERSION=$(echo $OUT | head -n 1 | awk '{ print $3; }')
+}

@@ -1,0 +1,38 @@
+NAME=check
+DESCRIPTION="unit test framework for C"
+VERSION="0.15.2"
+ABOSULTE_VERSION=3842
+URL="https://github.com/libcheck/check/releases/download/0.15.2/check-0.15.2.tar.gz"
+BUILD_DEPENDS=(make gcc binutils)
+DEPENDS=(gawk)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    ./configure --prefix=/usr --disable-static
+    return $?
+}
+
+build() {
+    make || return 1
+    make check
+    return $?
+}
+
+do_install() {
+    make docdir=/usr/share/doc/check-$VERSION install
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    if [ -x /usr/bin/checkmk ]; then
+        return 0
+    else
+        return 1
+    fi
+}

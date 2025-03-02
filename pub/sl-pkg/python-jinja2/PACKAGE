@@ -1,0 +1,39 @@
+NAME=python-jinja2
+TAR_NAME=jinja2
+DESCRIPTION="Small but fast and easy to use standable template engine"
+VERSION="3.1.5"
+ABOSULTE_VERSION=196869
+URL="https://pypi.org/packages/source/J/Jinja2/jinja2-3.1.5.tar.gz"
+BUILD_DEPENDS=()
+DEPENDS=(python)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    return 0
+}
+
+build() {
+    pip3 wheel -w dist --no-cache-dir --no-build-isolation --no-deps $PWD
+    return $?
+}
+
+do_install() {
+    pip3 install --no-index --no-user --find-links dist Jinja2
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    if find /usr/lib/python*/site-packages/Jinja2-*; then
+        declare -g VERSION=$(
+            find /usr/lib/python*/site-packages/Jinja2-* |
+                tail -n 1 |
+                awk -F"-" '{ print $3; }' |
+                cut -d"." -f -3
+        )
+}

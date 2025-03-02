@@ -1,0 +1,37 @@
+NAME=grep
+DESCRIPTION="GNU grep, egrep, and fgrep"
+VERSION="3.11"
+ABOSULTE_VERSION=779
+URL="https://ftp.gnu.org/gnu/grep/grep-3.11.tar.xz"
+BUILD_DEPENDS=(make gcc binutils)
+DEPENDS=(glibc)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+ESSENTIAL=true
+
+prepare() {
+    sed -i "s/echo/#echo/" src/egrep.sh
+    ./configure --prefix=/usr
+    return $?
+}
+
+build() {
+    make || return 1
+    make check
+    return $?
+}
+
+do_install() {
+    make install
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    OUT=$(grep --version) || return 1
+    declare -g VERSION=$(echo $OUT | head -n 1 | awk '{ print $4; }')
+}

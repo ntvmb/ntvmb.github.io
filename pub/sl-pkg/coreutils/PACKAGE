@@ -1,0 +1,43 @@
+NAME=coreutils
+DESCRIPTION="GNU core utilities"
+VERSION="9.5"
+ABOSULTE_VERSION=2309
+URL="https://ftp.gnu.org/gnu/coreutils/coreutils-9.5.tar.xz"
+BUILD_DEPENDS=(make gcc binutils autoconf)
+DEPENDS=(glibc acl attr libgmp openssl)
+OPTDEPENDS=()
+PATCHES=("https://www.linuxfromscratch.org/patches/lfs/12.2/coreutils-9.5-i18n-2.patch")
+METAPACKAGE=false
+ESSENTIAL=true
+
+prepare() {
+    patch -Np1 -i ../coreutils-9.5-i18n-2.patch
+    autoreconf -fi
+    FORCE_UNSAFE_CONFIGURE=1 ./configure \
+        --prefix=/usr                    \
+        --enable-no-install-program=kill,uptime
+    return $?
+}
+
+build() {
+    make || return 1
+    make NON_ROOT_USERNAME=tester check-root
+    return $?
+}
+
+do_install() {
+    make install
+    return $?
+}
+
+postinst() {
+    mv /usr/bin/chroot /usr/sbin
+    mv /usr/share/man/man1/chroot.1 /usr/share/man/man8/chroot.8
+    sed -i 's/"1"/"8"/' /usr/share/man/man8/chroot.8
+    return 0
+}
+
+detect() {
+    OUT=$(chmod --version) || return 1
+    declare -g VERSION=$(echo $OUT | head -n 1 | awk '{ print $4; }')
+}

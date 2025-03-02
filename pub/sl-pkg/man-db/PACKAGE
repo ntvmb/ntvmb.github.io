@@ -1,0 +1,44 @@
+NAME=man-db
+DESCRIPTION="Tools for reading manual pages"
+VERSION="2.12.1"
+ABOSULTE_VERSION=134145
+URL="https://download.savannah.gnu.org/releases/man-db/man-db-2.12.1.tar.xz"
+BUILD_DEPENDS=(make gcc binutils)
+DEPENDS=(glibc groff gdbm libpipeline zlib)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    ./configure --prefix=/usr                         \
+                --docdir=/usr/share/doc/man-db-2.12.1 \
+                --sysconfdir=/etc                     \
+                --disable-setuid                      \
+                --enable-cache-owner=bin              \
+                --with-browser=/usr/bin/lynx          \
+                --with-vgrind=/usr/bin/vgrind         \
+                --with-grap=/usr/bin/grap             \
+                --with-systemdtmpfilesdir=            \
+                --with-systemdsystemunitdir=
+    return $?
+}
+
+build() {
+    make || return 1
+    make check
+    return $?
+}
+
+do_install() {
+    make install
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    OUT=$(man --version) || return 1
+    declare -g VERSION=$(echo $OUT | awk '{ print $2; }')
+}

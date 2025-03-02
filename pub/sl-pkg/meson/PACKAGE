@@ -1,0 +1,35 @@
+NAME=meson
+DESCRIPTION="High-productivity build system"
+VERSION="1.5.1"
+ABOSULTE_VERSION=66817
+URL="https://github.com/mesonbuild/meson/releases/download/1.5.1/meson-1.5.1.tar.gz"
+BUILD_DEPENDS=()
+DEPENDS=(python ninja python-setuptools)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    return 0
+}
+
+build() {
+    pip3 wheel -w dist --no-cache-dir --no-build-isolation --no-deps $PWD
+    return $?
+}
+
+do_install() {
+    pip3 install --no-index --find-links dist meson
+    install -vDm644 data/shell-completions/bash/meson /usr/share/bash-completion/completions/meson
+    install -vDm644 data/shell-completions/zsh/_meson /usr/share/zsh/site-functions/_meson
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    OUT=$(meson --version) || return 1
+    declare -g VERSION=$OUT
+}

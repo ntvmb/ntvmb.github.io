@@ -1,0 +1,37 @@
+NAME=libpsl
+DESCRIPTION="Library resolving information from the Public Suffix List."
+VERSION="0.21.5"
+ABOSULTE_VERSION=5381
+URL="https://github.com/rockdaboot/libpsl/releases/download/0.21.5/libpsl-0.21.5.tar.gz"
+BUILD_DEPENDS=(meson ninja gcc binutils)
+DEPENDS=(glibc libunistring libidn2)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    mkdir build &&
+    cd    build &&
+    meson setup --prefix=/usr --buildtype=release
+    return $?
+}
+
+build() {
+    ninja || return 1
+    ninja test
+    return $?
+}
+
+do_install() {
+    ninja install
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    OUT=$(psl --version) || return 1
+    declare -g VERSION=$(echo $OUT | head -n 1 | awk '{ print $2; }')
+}

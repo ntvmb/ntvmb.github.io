@@ -1,0 +1,46 @@
+NAME=curl
+DESCRIPTION="Command-line tool for transferring data with URL syntax"
+VERSION="8.12.0"
+ABOSULTE_VERSION=527360
+URL="https://curl.se/download/curl-8.12.0.tar.xz"
+BUILD_DEPENDS=(make gcc binutils libpsl)
+DEPENDS=(glibc make-ca)
+OPTDEPENDS=(libidn2)
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    ./configure --prefix=/usr                           \
+                --disable-static                        \
+                --with-openssl                          \
+                --enable-threaded-resolver              \
+                --with-ca-path=/etc/ssl/certs
+    return $?
+}
+
+build() {
+    make
+    return $?
+}
+
+do_install() {
+    make install
+    return $?
+}
+
+postinst() {
+    rm -rf docs/examples/.deps &&
+
+    find docs \( -name Makefile\* -o  \
+                -name \*.1       -o  \
+                -name \*.3       -o  \
+                -name CMakeLists.txt \) -delete &&
+
+    cp -v -R docs -T /usr/share/doc/curl-8.9.1
+    return 0
+}
+
+detect() {
+    OUT=$(curl --version) || return 1
+    declare -g VERSION=$(echo $OUT | head -n 1 | awk '{ print $2; }')
+}

@@ -1,0 +1,38 @@
+NAME=libpipeline
+DESCRIPTION="Unix process pipeline manipulation library"
+VERSION="1.5.7"
+ABOSULTE_VERSION=66823
+URL="https://download.savannah.gnu.org/releases/libpipeline/libpipeline-1.5.7.tar.gz"
+BUILD_DEPENDS=(make gcc binutils)
+DEPENDS=(glibc)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    ./configure --prefix=/usr
+    return $?
+}
+
+build() {
+    make || return 1
+    make check
+    return $?
+}
+
+do_install() {
+    make install
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    if [ ! -f /usr/lib/libpipeline.so ]; then
+        return 1
+    else
+        declare -g VERSION=$(readlink /usr/lib/libpipeline.so | tail -c +16)
+    fi
+}

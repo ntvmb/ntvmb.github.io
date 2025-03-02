@@ -1,0 +1,37 @@
+NAME=iproute2
+DESCRIPTION="Networking and traffic control tools"
+VERSION="6.10.0"
+ABOSULTE_VERSION=395776
+URL="https://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-6.10.0.tar.xz"
+BUILD_DEPENDS=(make gcc binutils)
+DEPENDS=(glibc libelf)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    sed -i /ARPD/d Makefile || return 1
+    rm -f man/man8/arpd.8
+    return 0
+}
+
+build() {
+    make NETNS_RUN_DIR=/run/netns
+    return $?
+}
+
+do_install() {
+    make SBINDIR=/usr/sbin install
+    mkdir -p /usr/share/doc/iproute2-$VERSION
+    cp -v COPYING README* /usr/share/doc/iproute2-$VERSION
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    OUT=$(bridge -V) || return 1
+    declare -g VERSION=$(echo $OUT | awk '{ print $3; }')
+}

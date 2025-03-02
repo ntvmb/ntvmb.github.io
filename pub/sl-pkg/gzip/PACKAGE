@@ -1,0 +1,36 @@
+NAME=gzip
+DESCRIPTION="GNU gzip compression utilities"
+VERSION="1.13"
+ABOSULTE_VERSION=269
+URL="https://ftp.gnu.org/gnu/gzip/gzip-1.13.tar.xz"
+BUILD_DEPENDS=(make gcc binutils)
+DEPENDS=(glibc)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+ESSENTIAL=true
+
+prepare() {
+    ./configure --prefix=/usr
+    return $?
+}
+
+build() {
+    make || return 1
+    make check
+    return $?
+}
+
+do_install() {
+    make install
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    OUT=$(gzip --version) || return 1
+    declare -g VERSION=$(echo $OUT | head -n 1 | awk '{ print $2; }')
+}

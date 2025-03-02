@@ -1,0 +1,40 @@
+NAME=libunistring
+DESCRIPTION="Library for manipulating Unicode strings"
+VERSION="1.2"
+ABOSULTE_VERSION=258
+URL="https://ftp.gnu.org/gnu/libunistring/libunistring-1.2.tar.xz"
+BUILD_DEPENDS=(make gcc binutils)
+DEPENDS=(glibc)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    ./configure --prefix=/usr    \
+                --disable-static \
+                --docdir=/usr/share/doc/libunistring-$VERSION
+    return $?
+}
+
+build() {
+    make || return 1
+    make check
+    return $?
+}
+
+do_install() {
+    make install
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    if [ -f /usr/lib/libunistring.so ]; then
+        return 0
+    else
+        return 1
+    fi
+}

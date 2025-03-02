@@ -1,0 +1,44 @@
+NAME=bison
+DESCRIPTION="YACC-compatible parser generator"
+VERSION="3.8.2"
+ABOSULTE_VERSION=198658
+URL="https://ftp.gnu.org/gnu/bison/bison-3.8.2.tar.xz"
+BUILD_DEPENDS=(make gcc binutils)
+DEPENDS=(glibc m4)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    ./configure --prefix=/usr --docdir=/usr/share/doc/bison-$VERSION
+    return $?
+}
+
+build() {
+    make || return 1
+    echo "note: the test suite is expensive"
+    read -p "run test suite? " yn
+    case $yn in
+        [yY]*)
+            make check
+            return $?
+            ;;
+        *)
+            return 0
+            ;;
+    esac
+}
+
+do_install() {
+    make install
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    OUT=$(bison --version) || return 1
+    declare -g VERSION=$(echo $OUT | head -n 1 | awk '{ print $4; }')
+}

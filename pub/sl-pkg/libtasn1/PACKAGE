@@ -1,0 +1,36 @@
+NAME=libtasn1
+DESCRIPTION="Manage ASN.1 structures"
+VERSION="4.20.0"
+ABOSULTE_VERSION=267264
+URL="https://ftp.gnu.org/gnu/libtasn1/libtasn1-4.20.0.tar.gz"
+BUILD_DEPENDS=(make gcc binutils)
+DEPENDS=(glibc)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    ./configure --prefix=/usr --disable-static
+    return $?
+}
+
+build() {
+    make || return 1
+    make check
+    return $?
+}
+
+do_install() {
+    make install
+    make -C doc/reference install-data-local
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    OUT=$(asn1Coding --version) || return 1
+    declare -g VERSION=$(echo $OUT | head -n 1 | awk '{ print $3; }')
+}

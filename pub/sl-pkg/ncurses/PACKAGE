@@ -1,0 +1,55 @@
+NAME=ncurses
+DESCRIPTION="Basic terminal type definitions"
+VERSION="6.5"
+ABOSULTE_VERSION=1541
+URL="https://invisible-mirror.net/archives/ncurses/ncurses-6.5.tar.gz"
+BUILD_DEPENDS=(make gcc binutils)
+DEPENDS=(glibc)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+ESSENTIAL=true
+
+prepare() {
+    ./configure --prefix=/usr           \
+                --mandir=/usr/share/man \
+                --with-shared           \
+                --without-debug         \
+                --without-normal        \
+                --with-cxx-shared       \
+                --enable-pc-files       \
+                --with-pkg-config-libdir=/usr/lib/pkgconfig
+    return $?
+}
+
+build() {
+    make
+    # the test suite can only be run after installation
+    # make check
+    return $?
+}
+
+do_install() {
+    make DESTDIR=$PWD/dest install
+    install -vm755 dest/usr/lib/libncursesw.so.6.5 /usr/lib
+    rm -v  dest/usr/lib/libncursesw.so.6.5
+    sed -e 's/^#if.*XOPEN.*$/#if 1/' \
+        -i dest/usr/include/curses.h
+    cp -av dest/* /
+    for lib in ncurses form panel menu ; do
+        ln -sfv lib${lib}w.so /usr/lib/lib${lib}.so
+        ln -sfv ${lib}w.pc    /usr/lib/pkgconfig/${lib}.pc
+    done
+    ln -sfv libncursesw.so /usr/lib/libcurses.so
+    cp -R doc -T /usr/share/doc/ncurses-6.5
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    OUT=$(tic -V) || return 1
+    declare -g VERSION=$(echo $OUT | awk '{ print $2; }' | cut -d"." -f -2)
+}

@@ -1,0 +1,44 @@
+NAME=readline
+DESCRIPTION="GNU readline and history libraries"
+VERSION="8.2.13"
+ABOSULTE_VERSION=524819
+URL="https://ftp.gnu.org/gnu/readline/readline-8.2.13.tar.gz"
+BUILD_DEPENDS=(make gcc binutils)
+DEPENDS=(glibc ncurses)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    sed -i '/MV.*old/d' Makefile.in
+    sed -i '/{OLDSUFF}/c:' support/shlib-install
+    sed -i 's/-Wl,-rpath,[^ ]*//' support/shobj-conf
+    ./configure --prefix=/usr    \
+                --disable-static \
+                --with-curses    \
+                --docdir=/usr/share/doc/readline-8.2.13
+    return $?
+}
+
+build() {
+    make SHLIB_LIBS="-lncursesw"
+    return $?
+}
+
+do_install() {
+    make SHLIB_LIBS="-lncursesw" install
+    return $?
+}
+
+postinst() {
+    install -v -m644 doc/*.{ps,pdf,html,dvi} /usr/share/doc/readline-$VERSION
+    return 0
+}
+
+detect() {
+    if [ ! -f /usr/lib/libreadline.so ]; then
+        return 1
+    else
+        declare -g VERSION="$(readlink -f /usr/lib/libreadline.so | tail -c +25).0"
+    fi
+}

@@ -1,0 +1,35 @@
+NAME=autoconf
+DESCRIPTION="Automatic configure script builder"
+VERSION="2.72"
+ABOSULTE_VERSION=584
+URL="https://ftp.gnu.org/gnu/autoconf/autoconf-2.72.tar.xz"
+BUILD_DEPENDS=()
+DEPENDS=(perl m4)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    ./configure --prefix=/usr
+    return $?
+}
+
+build() {
+    make || return 1
+    make check
+    return $?
+}
+
+do_install() {
+    make install
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    OUT=$(autoconf --version) || return 1
+    declare -g VERSION=$(echo $OUT | head -n 1 | awk '{ print $4; }')
+}

@@ -1,0 +1,39 @@
+NAME=python-markupsafe
+TAR_NAME=MarkupSafe
+DESCRIPTION="HTML/XHTML/XML string library"
+VERSION="2.1.5"
+ABOSULTE_VERSION=131333
+URL="https://pypi.org/packages/source/M/MarkupSafe/MarkupSafe-2.1.5.tar.gz"
+BUILD_DEPENDS=()
+DEPENDS=(python)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    return 0
+}
+
+build() {
+    pip3 wheel -w dist --no-cache-dir --no-build-isolation --no-deps $PWD
+    return $?
+}
+
+do_install() {
+    pip3 install --no-index --no-user --find-links dist Markupsafe
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    if find /usr/lib/python*/site-packages/MarkupSafe-*; then
+        declare -g VERSION=$(
+            find /usr/lib/python*/site-packages/MarkupSafe-* |
+                tail -n 1 |
+                awk -F"-" '{ print $3; }' |
+                cut -d"." -f -3
+        )
+}

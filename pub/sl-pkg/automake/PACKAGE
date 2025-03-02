@@ -1,0 +1,36 @@
+NAME=automake
+DESCRIPTION="Tool for generating Makefiles"
+VERSION="1.17"
+ABOSULTE_VERSION=273
+URL="https://ftp.gnu.org/gnu/automake/automake-1.17.tar.xz"
+BUILD_DEPENDS=(make)
+DEPENDS=(autoconf)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    ./configure --prefix=/usr --docdir=/usr/share/doc/automake-$VERSION
+    return $?
+}
+
+build() {
+    make || return 1
+    # even with fewer cores, running 4 parallel jobs speeds up the tests
+    make -j$(($(nproc)>4?$(nproc):4)) check
+    return $?
+}
+
+do_install() {
+    make install
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    OUT=$(automake --version) || return 1
+    declare -g VERSION=$(echo $OUT | head -n 1 | awk '{ print $4; }')
+}

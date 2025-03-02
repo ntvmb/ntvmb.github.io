@@ -1,0 +1,38 @@
+NAME=pkgconf
+DESCRIPTION="manage compile and link flags for libraries"
+VERSION="2.3.0"
+ABOSULTE_VERSION=131840
+URL="https://distfiles.ariadne.space/pkgconf/pkgconf-2.3.0.tar.xz"
+BUILD_DEPENDS=(make gcc binutils)
+DEPENDS=(glibc)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    ./configure --prefix=/usr              \
+                --disable-static           \
+                --docdir=/usr/share/doc/pkgconf-$VERSION
+    return $?
+}
+
+build() {
+    make
+    return $?
+}
+
+do_install() {
+    make install
+    return $?
+}
+
+postinst() {
+    ln -sv pkgconf   /usr/bin/pkg-config
+    ln -sv pkgconf.1 /usr/share/man/man1/pkg-config.1
+    return 0
+}
+
+detect() {
+    OUT=$(pkgconf --version) || return 1
+    declare -g VERSION=$OUT
+}

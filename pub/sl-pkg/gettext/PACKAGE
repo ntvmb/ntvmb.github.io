@@ -1,0 +1,47 @@
+NAME=gettext
+DESCRIPTION="GNU Internationalization utilities"
+VERSION="0.22.5"
+ABOSULTE_VERSION=5637
+URL="https://ftp.gnu.org/gnu/gettext/gettext-0.22.5.tar.xz"
+BUILD_DEPENDS=(make binutils)
+DEPENDS=(glibc acl attr ncurses gcc)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    ./configure --prefix=/usr    \
+                --disable-static \
+                --docdir=/usr/share/doc/gettext-$VERSION
+    return $?
+}
+
+build() {
+    make || return 1
+    echo "note: the test suite is expensive"
+    read -p "run test suite? " yn
+    case $yn in
+        [yY]*)
+            make check
+            return $?
+            ;;
+        *)
+            return 0
+            ;;
+    esac
+}
+
+do_install() {
+    make install
+    chmod 0755 /usr/lib/preloadable_libintl.so
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    OUT=$(gettext --version) || return 1
+    declare -g VERSION=$(echo $OUT | head -n 1 | awk '{ print $4; }')
+}

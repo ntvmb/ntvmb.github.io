@@ -1,0 +1,33 @@
+NAME=iana-etc
+DESCRIPTION="Data for network services and protocols"
+VERSION=20240806
+ABOSULTE_VERSION=$VERSION
+URL="https://github.com/Mic92/iana-etc/releases/download/20240806/iana-etc-20240806.tar.gz"
+BUILD_DEPENDS=()
+DEPENDS=()
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    return 0
+}
+
+build() {
+    return 0
+}
+
+do_install() {
+    cp services protocols /etc
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    if [ ! -f /etc/services ] || [ ! -f /etc/protocols ]; then
+        return 1
+    fi
+}

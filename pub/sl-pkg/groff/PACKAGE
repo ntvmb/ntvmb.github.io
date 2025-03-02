@@ -1,0 +1,43 @@
+NAME=groff
+DESCRIPTION="GNU troff text-formatting system"
+VERSION="1.23.0"
+ABOSULTE_VERSION=71424
+URL="https://ftp.gnu.org/gnu/groff/groff-1.23.0.tar.gz"
+BUILD_DEPENDS=(make binutils)
+DEPENDS=(glibc gcc)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    case $LANG in
+        *_US*)
+            PAGE=letter
+            ;;
+        *)
+            PAGE=A4
+            ;;
+    esac
+    ./configure --prefix=/usr
+    return $?
+}
+
+build() {
+    make || return 1
+    make check
+    return $?
+}
+
+do_install() {
+    make install
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    OUT=$(groff --version) || return 1
+    declare -g VERSION=$(echo $OUT | head -n 1 | awk '{ print $4; }')
+}

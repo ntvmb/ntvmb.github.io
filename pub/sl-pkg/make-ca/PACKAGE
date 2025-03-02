@@ -1,0 +1,35 @@
+NAME=make-ca
+DESCRIPTION="Generate CA-certificate stores"
+VERSION="1.14"
+ABOSULTE_VERSION=270
+URL="https://github.com/lfs-book/make-ca/archive/v1.14/make-ca-1.14.tar.gz"
+BUILD_DEPENDS=(make)
+DEPENDS=(openssl p11-kit glibc)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    return 0
+}
+
+build() {
+    return 0
+}
+
+do_install() {
+    make install &&
+    install -vdm755 /etc/ssl/local
+    return $?
+}
+
+postinst() {
+    make-ca -g
+    return 0
+}
+
+detect() {
+    return 1
+    OUT=$(xz --version) || return 1
+    declare -g VERSION=$(echo $OUT | head -n 1 | awk '{ print $4; }')
+}

@@ -1,0 +1,34 @@
+NAME=man-pages
+DESCRIPTION="Manual pages for using a GNU/Linux system"
+VERSION="6.9.1"
+ABOSULTE_VERSION=395521
+URL="https://www.kernel.org/pub/linux/docs/man-pages/man-pages-6.9.1.tar.xz"
+BUILD_DEPENDS=()
+DEPENDS=()
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    rm -v man3/crypt*
+    return 0
+}
+
+build() {
+    return 0
+}
+
+do_install() {
+    make prefix=/usr install
+    return 0
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    if [ ! -f /usr/share/man/man8/intro.8 ]; then
+        return 1
+    fi
+}

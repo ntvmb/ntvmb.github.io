@@ -1,0 +1,41 @@
+NAME=openssl
+DESCRIPTION="Secure Sockets Layer toolkit - cryptographic utility"
+VERSION="3.3.3"
+ABOSULTE_VERSION=197379
+URL="https://www.openssl.org/source/openssl-3.3.3.tar.gz"
+BUILD_DEPENDS=(make gcc binutils)
+DEPENDS=(glibc)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    ./config --prefix=/usr         \
+            --openssldir=/etc/ssl \
+            --libdir=lib          \
+            shared                \
+            zlib-dynamic
+    return $?
+}
+
+build() {
+    make
+    return $?
+}
+
+do_install() {
+    sed -i '/INSTALL_LIBS/s/libcrypto.a libssl.a//' Makefile
+    make MANSUFFIX=ssl install
+    return $?
+}
+
+postinst() {
+    mv -v /usr/share/doc/openssl /usr/share/doc/openssl-$VERSION
+    cp -vfr doc/* /usr/share/doc/openssl-$VERSION
+    return 0
+}
+
+detect() {
+    OUT=$(openssl --version) || return 1
+    declare -g VERSION=$(echo $OUT | awk '{ print $2; }')
+}

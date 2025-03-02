@@ -1,0 +1,38 @@
+NAME=grub
+DESCRIPTION="GNU GRand Unified Bootloader, version 2 (metapackage)"
+VERSION="2.12"
+ABOSULTE_VERSION=525
+BUILD_DEPENDS=()
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=true
+if [ -d /sys/firmware/efi/efivars ]; then
+    DEPENDS=(grub-efi)
+else
+    DEPENDS=(grub-pc)
+fi
+
+prepare() {
+    return 0
+}
+
+build() {
+    return 0
+}
+
+do_install() {
+    return 0
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    if [ -d /sys/firmware/efi/efivars ]; then
+        OUT=$(sl-pkg detect grub-efi) || return 1
+    else
+        OUT=$(sl-pkg detect grub-pc) || return 1
+    fi
+    declare -g VERSION=$(echo $OUT | awk '{ print $3; }')
+}

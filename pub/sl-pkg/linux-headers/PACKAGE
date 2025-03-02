@@ -1,0 +1,54 @@
+NAME=linux-headers
+DESCRIPTION="API headers for the Linux kernel"
+VERSION="6.13.5"
+ABOSULTE_VERSION=396549
+URL="https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.13.5.tar.xz"
+BUILD_DEPENDS=(make gcc binutils bc bison flex libelf ncurses openssl perl gettext)
+DEPENDS=(linux)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    chown -R root:root .
+    make mrproper
+    return 0
+}
+
+build() {
+    make headers
+    return $?
+}
+
+do_install() {
+    # the recommended make target install_headers cannot be used as it
+    # requires rsync, which may not be available
+    find usr/include -type f ! -name '*.h' -delete
+    cp -rv usr/include /usr
+    return 0
+}
+
+postinst() {
+    # we don't need a copy of the Linux source tree here
+    rm -rf $CACHE_DIR/$NAME/linux*
+    return 0
+}
+
+detect() {
+    # write a simple program that prints the version of the headers
+    cat <<"EOF">header_version.c
+#include <linux/version.h>
+#include <stdio.h>
+
+int main() {
+  printf("%d.%d.%d\n", LINUX_VERSION_MAJOR, LINUX_VERSION_PATCHLEVEL, LINUX_VERSION_SUBLEVEL);
+  return 0;
+}
+EOF
+    # the compilation should only fail if the kernel headers aren't installed
+    gcc header_version.c || (rm header_version.c; return 1)
+    OUT=$(./a.out) # if the build was successful, a.out will always return 0.
+    declare -g VERSION=$OUT
+    rm a.out header_version.c
+    return 0
+}

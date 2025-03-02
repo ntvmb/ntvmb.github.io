@@ -1,0 +1,35 @@
+NAME=findutils
+DESCRIPTION="Utilities for finding files"
+VERSION="4.10.0"
+ABOSULTE_VERSION=264704
+URL="https://ftp.gnu.org/gnu/findutils/findutils-4.10.0.tar.xz"
+BUILD_DEPENDS=(make gcc binutils)
+DEPENDS=(glibc)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+ESSENTIAL=true
+
+prepare() {
+    ./configure --prefix=/usr --localstatedir=/var/lib/locate
+    return $?
+}
+
+build() {
+    make
+    return $?
+}
+
+do_install() {
+    make install
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    OUT=$(find --version) || return 1
+    declare -g VERSION=$(echo $OUT | head -n 1 | awk '{ print $4; }')
+}

@@ -1,0 +1,37 @@
+NAME=attr
+DESCRIPTION="Utilities for manipulating extended file attributes"
+VERSION="2.5.2"
+ABOSULTE_VERSION=132354
+URL="https://download.savannah.gnu.org/releases/attr/attr-2.5.2.tar.gz"
+BUILD_DEPENDS=(make gcc binutils)
+DEPENDS=(glibc)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    ./configure --prefix=/usr    \
+                --disable-static \
+                --sysconfdir=/etc \
+                --docdir=/usr/share/doc/attr-$VERSION
+    return $?
+}
+
+build() {
+    make
+    return $?
+}
+
+do_install() {
+    make install
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    OUT=$(getfattr --version) || return 1
+    declare -g VERSION=$(echo $OUT | awk '{ print $2; }')
+}

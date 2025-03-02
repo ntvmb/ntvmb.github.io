@@ -1,0 +1,36 @@
+NAME=acl
+DESCRIPTION="Utilities for managing access control lists"
+VERSION="2.3.2"
+ABOSULTE_VERSION=131842
+URL="https://download.savannah.gnu.org/releases/acl/acl-2.3.2.tar.xz"
+BUILD_DEPENDS=(make gcc binutils)
+DEPENDS=(glibc)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    ./configure --prefix=/usr    \
+                --disable-static \
+                --docdir=/usr/share/doc/acl-$VERSION
+    return $?
+}
+
+build() {
+    make
+    return $?
+}
+
+do_install() {
+    make install
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    OUT=$(getfacl -v) || return 1
+    declare -g VERSION=$(echo $OUT | awk '{ print $2; }')
+}

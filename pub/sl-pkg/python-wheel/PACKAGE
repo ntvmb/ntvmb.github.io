@@ -1,0 +1,38 @@
+NAME=python-wheel
+DESCRIPTION="Built-package format for Python"
+VERSION="0.44.0"
+ABOSULTE_VERSION=11264
+URL="https://pypi.org/packages/source/w/wheel/wheel-0.44.0.tar.gz"
+BUILD_DEPENDS=()
+DEPENDS=(python)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    return 0
+}
+
+build() {
+    pip3 wheel -w dist --no-cache-dir --no-build-isolation --no-deps $PWD
+    return $?
+}
+
+do_install() {
+    pip3 install --no-index --find-links=dist wheel
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    if [ -d /usr/lib/python*/site-packages/wheel ]; then
+        declare -g VERSION=$(
+            find /usr/lib/python*/site-packages/wheel-* |
+                tail -n 1 |
+                awk -F"-" '{ print $3; }' |
+                cut -d"." -f -3
+        )
+}

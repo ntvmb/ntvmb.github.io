@@ -1,0 +1,43 @@
+NAME=e2fsprogs
+DESCRIPTION="ext2/3/4 file system utilities"
+VERSION="1.47.1"
+ABOSULTE_VERSION=77569
+URL="https://downloads.sourceforge.net/project/e2fsprogs/e2fsprogs/v1.47.1/e2fsprogs-1.47.1.tar.gz"
+BUILD_DEPENDS=(make gcc binutils)
+DEPENDS=(glibc)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    mkdir build
+    cd build
+    ../configure --prefix=/usr           \
+                 --sysconfdir=/etc       \
+                 --enable-elf-shlibs     \
+                 --disable-libblkid      \
+                 --disable-libuuid       \
+                 --disable-uuidd         \
+                 --disable-fsck
+    return $?
+}
+
+build() {
+    make
+    return $?
+}
+
+do_install() {
+    make install
+    return $?
+}
+
+postinst() {
+    rm -f /usr/lib/{libcom_err,libe2p,libext2fs,libss}.a
+    return 0
+}
+
+detect() {
+    OUT=$(mke2fs -V) || return 1
+    declare -g VERSION=$(echo $OUT | head -n 1 | awk '{ print $2; }')
+}

@@ -1,0 +1,47 @@
+NAME=systemd-man-pages
+DESCRIPTION="Manual pages for systemd"
+VERSION="256.4"
+ABOSULTE_VERSION=329218
+URL="https://anduin.linuxfromscratch.org/LFS/systemd-man-pages-256.4.tar.xz"
+BUILD_DEPENDS=()
+DEPENDS=()
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    return 0
+}
+
+build() {
+    return 0
+}
+
+do_install() {
+    cp -vt /usr/share/man */udev* */libudev* */systemd.link.5 */systemd-{hwdb,udevd.service}.8
+    return 0
+}
+
+postinst() {
+    sed 's|systemd/network|udev/network|'                                 \
+        /usr/share/man/man5/systemd.link.5                                \
+      > /usr/share/man/man5/udev.link.5
+
+    sed 's/systemd\(\\\?-\)/udev\1/' /usr/share/man/man8/systemd-hwdb.8   \
+                                   > /usr/share/man/man8/udev-hwdb.8
+
+    sed 's|lib.*udevd|sbin/udevd|'                                        \
+        /usr/share/man/man8/systemd-udevd.service.8                       \
+      > /usr/share/man/man8/udevd.8
+
+    rm /usr/share/man/man*/systemd*
+    return 0
+}
+
+detect() {
+    if [ -f /usr/share/man/man8/udev*.8 ]; then
+        return 0
+    else
+        return 1
+    fi
+}

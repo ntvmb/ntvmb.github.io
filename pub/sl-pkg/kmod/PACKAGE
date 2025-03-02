@@ -1,0 +1,47 @@
+NAME=kmod
+DESCRIPTION="Tools for managing Linux kernel modules"
+VERSION=33
+ABOSULTE_VERSION=$VERSION
+URL="https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-33.tar.xz"
+BUILD_DEPENDS=(make gcc binutils)
+DEPENDS=(glibc xz openssl zstd)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    ./configure --prefix=/usr     \
+                --sysconfdir=/etc \
+                --with-openssl    \
+                --with-xz         \
+                --with-zstd       \
+                --with-zlib       \
+                --disable-manpages
+    return $?
+}
+
+build() {
+    make
+    # The test suite requires raw kernel headers, not the sanitized ones
+    # from earlier. This is beyond the scope of LFS.
+    # make check
+    return $?
+}
+
+do_install() {
+    make install
+    for target in depmod insmod modinfo modprobe rmmod; do
+        ln -sfv ../bin/kmod /usr/sbin/$target
+        rm -fv /usr/bin/$target
+    done
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    OUT=$(kmod -V) || return 1
+    declare -g VERSION=$(echo $OUT | head -n 1 | awk '{ print $3; }')
+}

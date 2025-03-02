@@ -1,0 +1,37 @@
+NAME=intltool
+DESCRIPTION="Utility scripts for internationalizing XML"
+VERSION="0.51.0"
+ABOSULTE_VERSION=13056
+URL="https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz"
+BUILD_DEPENDS=(make)
+DEPENDS=(gettext patch automake perl libxml-parser-perl file)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    sed -i 's:\\\${:\\\$\\{:' intltool-update.in
+    ./configure --prefix=/usr
+    return $?
+}
+
+build() {
+    make || return 1
+    make check
+    return $?
+}
+
+do_install() {
+    make install
+    return $?
+}
+
+postinst() {
+    install -v -Dm644 doc/I18N-HOWTO /usr/share/doc/intltool-$VERSION/I18N-HOWTO
+    return 0
+}
+
+detect() {
+    OUT=$(intltoolize --version) || return 1
+    declare -g VERSION=$(echo $OUT | awk '{ print $4; }')
+}

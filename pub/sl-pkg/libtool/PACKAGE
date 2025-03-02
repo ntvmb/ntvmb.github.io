@@ -1,0 +1,37 @@
+NAME=libtool
+DESCRIPTION="Generic library support script"
+VERSION="2.4.7"
+ABOSULTE_VERSION=132103
+URL="https://ftp.gnu.org/gnu/libtool/libtool-2.4.7.tar.xz"
+BUILD_DEPENDS=(make binutils)
+DEPENDS=(glibc gcc file)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    ./configure --prefix=/usr
+    return $?
+}
+
+build() {
+    make
+    # test suite has some problems that make me reluctant to run the tests
+    # make check
+    return $?
+}
+
+do_install() {
+    make install
+    return $?
+}
+
+postinst() {
+    rm -f /usr/lib/libltdl.a
+    return 0
+}
+
+detect() {
+    OUT=$(libtool --version) || return 1
+    declare -g VERSION=$(echo $OUT | head -n 1 | awk '{ print $4; }')
+}

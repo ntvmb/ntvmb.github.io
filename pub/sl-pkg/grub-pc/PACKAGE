@@ -1,0 +1,46 @@
+NAME=grub-pc
+TAR_NAME=grub
+DESCRIPTION="GNU GRand Unified Bootloader, version 2 (PC/BIOS modules)"
+VERSION="2.12"
+ABOSULTE_VERSION=525
+URL="https://ftp.gnu.org/gnu/grub/grub-2.12.tar.xz"
+BUILD_DEPENDS=(make gcc binutils flex)
+DEPENDS=(glibc)
+OPTDEPENDS=()
+PATCHES=()
+METAPACKAGE=false
+
+prepare() {
+    # These variables may affect the build. We must clear these before
+    # building, otherwise the package might break.
+    unset {C,CPP,CXX,LD}FLAGS
+    ./configure --prefix=/usr          \
+                --sysconfdir=/etc      \
+                --disable-efiemu       \
+                --disable-werror
+    return $?
+}
+
+build() {
+    make
+    # running the test suite is not recommended here as most of the tests
+    # depend on packages that aren't available on the base system
+    # uncomment the following line to run the tests anyway
+    # make check
+    return $?
+}
+
+do_install() {
+    make install
+    mv -v /etc/bash_completion.d/grub /usr/share/bash-completion/completions
+    return $?
+}
+
+postinst() {
+    return 0
+}
+
+detect() {
+    OUT=$(grub-install --version) || return 1
+    declare -g VERSION=$(echo $OUT | awk '{ print $3; }')
+}
