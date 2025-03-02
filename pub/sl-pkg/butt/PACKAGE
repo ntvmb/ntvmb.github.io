@@ -31,5 +31,5 @@ postinst() {
 
 detect() {
     OUT=$(butt -v) || return 1
-    declare -g VERSION="$($OUT | awk '{ print $2; }')-1"
+    declare -g VERSION="$(echo $OUT | awk '{ print $2; }')-1"
 }
