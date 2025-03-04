@@ -35,4 +35,5 @@ detect() {
                 awk -F"-" '{ print $3; }' |
                 cut -d"." -f -3
         )
+    fi
 }

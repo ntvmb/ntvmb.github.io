@@ -30,6 +30,6 @@ postinst() {
 
 detect() {
     return 1
-    OUT=$(xz --version) || return 1
-    declare -g VERSION=$(echo $OUT | head -n 1 | awk '{ print $4; }')
+    OUT=$(make-ca -v) || return 1
+    declare -g VERSION=$(echo $OUT | head -n 1 | awk '{ print $2; }')
 }

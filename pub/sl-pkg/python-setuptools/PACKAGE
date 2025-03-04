@@ -5,7 +5,7 @@ VERSION="72.2.0"
 ABOSULTE_VERSION=4719104
 URL="https://pypi.org/packages/source/s/setuptools/setuptools-72.2.0.tar.gz"
 BUILD_DEPENDS=()
-DEPENDS=(python)
+DEPENDS=(python python-wheel)
 OPTDEPENDS=()
 PATCHES=()
 METAPACKAGE=false
@@ -36,4 +36,5 @@ detect() {
                 awk -F"-" '{ print $3; }' |
                 cut -d"." -f -3
         )
+    fi
 }

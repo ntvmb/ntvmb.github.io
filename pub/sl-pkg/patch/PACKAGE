@@ -31,6 +31,6 @@ postinst() {
 }
 
 detect() {
-    OUT=$(xz --version) || return 1
+    OUT=$(patch --version) || return 1
     declare -g VERSION=$(echo $OUT | head -n 1 | awk '{ print $3; }')
 }
