@@ -29,7 +29,6 @@ postinst() {
 }
 
 detect() {
-    return 1
     OUT=$(make-ca -v) || return 1
     declare -g VERSION=$(echo $OUT | head -n 1 | awk '{ print $2; }')
 }
