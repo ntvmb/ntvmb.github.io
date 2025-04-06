@@ -1,8 +1,8 @@
 NAME=expat
 DESCRIPTION="XML-parsing C library"
-VERSION="2.6.4"
-ABOSULTE_VERSION=132612
-URL="https://prdownloads.sourceforge.net/expat/expat-2.6.4.tar.xz"
+VERSION="2.7.1"
+ABOSULTE_VERSION=132865
+URL="https://prdownloads.sourceforge.net/expat/expat-2.7.1.tar.xz"
 BUILD_DEPENDS=(make gcc binutils)
 DEPENDS=(glibc)
 OPTDEPENDS=()

@@ -29,6 +29,14 @@ do_install() {
 
 postinst() {
     useradd -rm tester
+    mkdir -p /usr/share/sl-pkg
+    sqlite3 /usr/share/sl-pkg/installed_packages.db <<<"
+CREATE TABLE IF NOT EXISTS InstalledPackages(
+    Name            VARCHAR(255) NOT NULL,
+    Version         VARCHAR(255) NOT NULL,
+    AbsoluteVersion INTEGER NOT NULL,
+    InstallDate     DATE
+);"
     return 0
 }
 
