@@ -1,17 +1,17 @@
 NAME=coreutils
 DESCRIPTION="GNU core utilities"
-VERSION="9.5"
-ABOSULTE_VERSION=2309
-URL="https://ftp.gnu.org/gnu/coreutils/coreutils-9.5.tar.xz"
+VERSION="9.6"
+ABOSULTE_VERSION=2310
+URL="https://ftp.gnu.org/gnu/coreutils/coreutils-9.6.tar.xz"
 BUILD_DEPENDS=(make gcc binutils autoconf)
 DEPENDS=(glibc acl attr libgmp openssl)
 OPTDEPENDS=()
-PATCHES=("https://www.linuxfromscratch.org/patches/lfs/12.2/coreutils-9.5-i18n-2.patch")
+PATCHES=("https://www.linuxfromscratch.org/patches/lfs/12.3/coreutils-9.6-i18n-1.patch")
 METAPACKAGE=false
 ESSENTIAL=true
 
 prepare() {
-    patch -Np1 -i ../coreutils-9.5-i18n-2.patch
+    patch -Np1 -i ../coreutils-9.6-i18n-1.patch
     autoreconf -fi
     FORCE_UNSAFE_CONFIGURE=1 ./configure \
         --prefix=/usr                    \
