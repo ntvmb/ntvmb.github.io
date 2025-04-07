@@ -53,7 +53,6 @@ python-wheel
 python-setuptools
 ninja
 meson
-coreutils
 check
 diffutils
 gawk
