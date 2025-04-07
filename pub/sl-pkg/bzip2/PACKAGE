@@ -24,6 +24,10 @@ build() {
 }
 
 do_install() {
+    # prevent a missing html manual from stopping the installation
+    if [ ! -f manual.html ]; then
+        touch manual.html
+    fi
     make PREFIX=/usr install || return 1
     cp -av libbz2.so.* /usr/lib
     ln -sv libbz2.so.1.0.8 /usr/lib/libbz2.so
