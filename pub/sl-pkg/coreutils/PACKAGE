@@ -12,7 +12,8 @@ ESSENTIAL=true
 
 prepare() {
     patch -Np1 -i ../coreutils-9.6-i18n-1.patch
-    autoreconf -fi
+    autoreconf -f
+    automake -af
     FORCE_UNSAFE_CONFIGURE=1 ./configure \
         --prefix=/usr                    \
         --enable-no-install-program=kill,uptime
