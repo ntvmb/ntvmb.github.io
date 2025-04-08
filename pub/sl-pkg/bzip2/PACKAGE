@@ -31,6 +31,9 @@ do_install() {
     if [ ! -f manual.pdf ]; then
         touch manual.pdf
     fi
+    if [ ! -f manual.ps ]; then
+        touch manual.ps
+    fi
     make PREFIX=/usr install || return 1
     cp -av libbz2.so.* /usr/lib
     ln -sv libbz2.so.1.0.8 /usr/lib/libbz2.so
