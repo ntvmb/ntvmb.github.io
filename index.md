@@ -17,5 +17,6 @@ Other links:
 [Github](https://github.com/ntvmb)  
 [Mastodon](https://mastodon.social/@VirtualNate)
 
-More things:
+More things:  
+[My ventures in writing](docs/creative-works)  
 [PRS format documentation](./docs/prs-format)

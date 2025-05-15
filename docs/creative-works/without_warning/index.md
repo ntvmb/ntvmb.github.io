@@ -1,0 +1,11 @@
+# Without Warning
+
+*This is a non-fiction short story based around the events of the 1990 Plainfield F5 tornado—a violent tornado that went completely unwarned as it struck the Chicago area. It is the only (E)F5 tornado recorded in the United States during the month of August, and the only F5 tornado to strike the aforementioned area.*
+
+It was a day that felt about as normal as it could be for August in the town of Plainfield, Illinois. It was hot and humid, and people were doing all their normal summer activities. Little did they know was that in a matter of minutes, the lives of the residents of Plainfield would be changed forever.
+
+Approaching from the northwest was a killer F5 tornado, with the ferocious rotating winds pulverizing everything in its path. Trucks were thrown and corn crops were ripped from the ground. Normally, residents would be alerted several minutes in advance. Unfortunately, even though people spotted the tornado, the reports didn’t get delivered in time. All that was left to identify the tornado was radar, but the signs weren’t apparent enough for the weather service to identify the twister. A perfect storm of ingredients led to Plainfield being struck without warning.
+
+The town high school was hit, and children were terrified, wondering if they would die waiting for the storm to pass. The school was destroyed except for one hallway where volleyball and football players took shelter. Not everyone was so lucky, though. A teacher and two maintenance staff would be lost in the storm.
+
+The press came, and the people were shocked at how this massive twister went undetected. In the process, better systems were developed to ensure proper tornado preparedness in the future. Schools now conduct regular drills, and weather radar technology has improved significantly, allowing for meteorologists to more easily detect tornadoes. Eventually it was determined that the weather service office in Chicago was overworked. It was given the responsibility of issuing forecasts and warnings for the entire state of Illinois, so the office thought it was better to issue too many warnings and be wrong than to miss one critical warning. Now there are several offices serving some part of Illinois: Chicago (Romeoville), Lincoln, Paducah, Davenport, and St. Louis. Some good did indeed come out of bad.

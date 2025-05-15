@@ -21,3 +21,9 @@ defaults:
     values:
       layout: "prs_wiki"
       table_of_contents: null
+  -
+    scope:
+      path: "docs/creative-works"
+      type: "pages"
+    values:
+      layout: creative_works
