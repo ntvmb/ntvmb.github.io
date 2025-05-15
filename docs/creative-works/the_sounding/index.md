@@ -17,7 +17,7 @@ But there is no need to hustle;
 There is still plenty of time  
 To make the sounding prime.
 
-A radiosonde needs calibration  
+A radiosonde[^radiosonde] needs calibration  
 Before it experiences the sensation  
 Of the entirety of its gyration,  
 So it can spin up its narration.
@@ -31,3 +31,7 @@ Now there's no time to hold off
 So the balloon must be let off.  
 At this point it takes off  
 And with the wind it drifts off.
+
+_____________________________________________
+
+[^radiosonde]: A radiosonde is an instrument usually carried by a weather balloon that measures several atmospheric variables and transmits the information back to a receiver on the ground.
