@@ -1,9 +1,9 @@
 NAME=openssl
 DESCRIPTION="Secure Sockets Layer toolkit - cryptographic utility"
-VERSION="3.3.3"
+VERSION="3.4.1"
 ABOSULTE_VERSION=197379
-URL="https://www.openssl.org/source/openssl-3.3.3.tar.gz"
-BUILD_DEPENDS=(make gcc binutils)
+URL="https://github.com/openssl/openssl/releases/download/openssl-3.4.1/openssl-3.4.1.tar.gz"
+BUILD_DEPENDS=(make gcc binutils perl)
 DEPENDS=(glibc)
 OPTDEPENDS=()
 PATCHES=()

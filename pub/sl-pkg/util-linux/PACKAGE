@@ -1,8 +1,8 @@
 NAME=util-linux
 DESCRIPTION="Various system utilities"
-VERSION="2.40.2"
-ABOSULTE_VERSION=141314
-URL="https://www.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.2.tar.xz"
+VERSION="2.40.4"
+ABOSULTE_VERSION=141316
+URL="https://www.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.4.tar.xz"
 BUILD_DEPENDS=(make gcc binutils)
 DEPENDS=(glibc libcap libxcrypt ncurses)
 OPTDEPENDS=()

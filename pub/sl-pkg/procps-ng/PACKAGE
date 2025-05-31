@@ -1,8 +1,8 @@
 NAME=procps-ng
 DESCRIPTION="/proc file system utilities"
-VERSION="4.0.4"
-ABOSULTE_VERSION=262148
-URL="https://sourceforge.net/projects/procps-ng/files/Production/procps-ng-4.0.4.tar.xz"
+VERSION="4.0.5"
+ABOSULTE_VERSION=262149
+URL="https://sourceforge.net/projects/procps-ng/files/Production/procps-ng-4.0.5.tar.xz"
 BUILD_DEPENDS=(make gcc binutils)
 DEPENDS=(glibc ncurses)
 OPTDEPENDS=()
@@ -10,9 +10,9 @@ PATCHES=()
 METAPACKAGE=false
 
 prepare() {
-    ./configure --prefix=/usr                           \
-                --docdir=/usr/share/doc/procps-ng-4.0.4 \
-                --disable-static                        \
+    ./configure --prefix=/usr                              \
+                --docdir=/usr/share/doc/procps-ng-$VERSION \
+                --disable-static                           \
                 --disable-kill
     return $?
 }

@@ -1,9 +1,9 @@
 NAME=python-setuptools
 TAR_NAME=setuptools
 DESCRIPTION="Python3 Distutils Enhancements"
-VERSION="72.2.0"
-ABOSULTE_VERSION=4719104
-URL="https://pypi.org/packages/source/s/setuptools/setuptools-72.2.0.tar.gz"
+VERSION="75.8.1"
+ABOSULTE_VERSION=4917249
+URL="https://pypi.org/packages/source/s/setuptools/setuptools-75.8.1.tar.gz"
 BUILD_DEPENDS=()
 DEPENDS=(python python-wheel)
 OPTDEPENDS=()

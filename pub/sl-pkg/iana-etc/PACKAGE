@@ -1,8 +1,8 @@
 NAME=iana-etc
 DESCRIPTION="Data for network services and protocols"
-VERSION=20240806
+VERSION=20250123
 ABOSULTE_VERSION=$VERSION
-URL="https://github.com/Mic92/iana-etc/releases/download/20240806/iana-etc-20240806.tar.gz"
+URL="https://github.com/Mic92/iana-etc/releases/download/20250123/iana-etc-20250123.tar.gz"
 BUILD_DEPENDS=()
 DEPENDS=()
 OPTDEPENDS=()

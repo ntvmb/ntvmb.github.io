@@ -1,8 +1,8 @@
 NAME=libffi
 DESCRIPTION="Foreign Function Interface library"
-VERSION="3.4.6"
-ABOSULTE_VERSION=197638
-URL="https://github.com/libffi/libffi/releases/download/v3.4.6/libffi-3.4.6.tar.gz"
+VERSION="3.4.7"
+ABOSULTE_VERSION=197639
+URL="https://github.com/libffi/libffi/releases/download/v3.4.7/libffi-3.4.7.tar.gz"
 BUILD_DEPENDS=(make gcc binutils)
 DEPENDS=(glibc)
 OPTDEPENDS=()

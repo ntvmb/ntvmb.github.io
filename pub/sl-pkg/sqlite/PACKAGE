@@ -1,11 +1,11 @@
 NAME=sqlite
 DESCRIPTION="Command-line interface for SQLite"
-VERSION="3.46.1"
-ABOSULTE_VERSION=208385
-URL="https://sqlite.org/2024/sqlite-autoconf-3460100.tar.gz"
+VERSION="3.49.1"
+ABOSULTE_VERSION=209153
+URL="https://sqlite.org/2025/sqlite-autoconf-3490100.tar.gz"
 BUILD_DEPENDS=(make gcc binutils)
-DEPENDS=(glibc readline zlib)
-OPTDEPENDS=()
+DEPENDS=(glibc readline)
+OPTDEPENDS=(zlib)
 PATCHES=()
 METAPACKAGE=false
 

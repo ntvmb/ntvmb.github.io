@@ -1,8 +1,8 @@
 NAME=gettext
 DESCRIPTION="GNU Internationalization utilities"
-VERSION="0.22.5"
-ABOSULTE_VERSION=5637
-URL="https://ftp.gnu.org/gnu/gettext/gettext-0.22.5.tar.xz"
+VERSION="0.24"
+ABOSULTE_VERSION=6144
+URL="https://ftp.gnu.org/gnu/gettext/gettext-0.24.tar.xz"
 BUILD_DEPENDS=(make binutils)
 DEPENDS=(glibc acl attr ncurses gcc)
 OPTDEPENDS=()

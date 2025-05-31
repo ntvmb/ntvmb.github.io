@@ -1,8 +1,8 @@
 NAME=linux-headers
 DESCRIPTION="API headers for the Linux kernel"
-VERSION="6.13.5"
-ABOSULTE_VERSION=396549
-URL="https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.13.5.tar.xz"
+VERSION="6.15.0"
+ABOSULTE_VERSION=397056
+URL="https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.15.tar.xz"
 BUILD_DEPENDS=(make gcc binutils bc bison flex libelf ncurses openssl perl gettext)
 DEPENDS=(linux)
 OPTDEPENDS=()

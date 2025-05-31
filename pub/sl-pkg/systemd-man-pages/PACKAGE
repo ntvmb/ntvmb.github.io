@@ -1,8 +1,8 @@
 NAME=systemd-man-pages
 DESCRIPTION="Manual pages for systemd"
-VERSION="256.4"
-ABOSULTE_VERSION=329218
-URL="https://anduin.linuxfromscratch.org/LFS/systemd-man-pages-256.4.tar.xz"
+VERSION="257.3"
+ABOSULTE_VERSION=65795
+URL="https://anduin.linuxfromscratch.org/LFS/systemd-man-pages-257.3.tar.xz"
 BUILD_DEPENDS=()
 DEPENDS=()
 OPTDEPENDS=()

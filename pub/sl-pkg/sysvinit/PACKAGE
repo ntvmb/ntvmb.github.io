@@ -1,16 +1,16 @@
 NAME=sysvinit
 DESCRIPTION="System-V-style init"
-VERSION="3.10"
-ABOSULTE_VERSION=778
-URL="https://github.com/slicer69/sysvinit/releases/download/3.10/sysvinit-3.10.tar.xz"
+VERSION="3.14"
+ABOSULTE_VERSION=782
+URL="https://github.com/slicer69/sysvinit/releases/download/3.14/sysvinit-3.14.tar.xz"
 BUILD_DEPENDS=(make gcc binutils)
 DEPENDS=(glibc lfs-bootscripts)
 OPTDEPENDS=()
-PATCHES=("https://www.linuxfromscratch.org/patches/lfs/12.2/sysvinit-3.10-consolidated-1.patch")
+PATCHES=("https://www.linuxfromscratch.org/patches/lfs/12.3/sysvinit-3.14-consolidated-1.patch")
 METAPACKAGE=false
 
 prepare() {
-    patch -Np1 -i ../sysvinit-3.10-consolidated-1.patch
+    patch -Np1 -i ../sysvinit-3.14-consolidated-1.patch
     return $?
 }
 

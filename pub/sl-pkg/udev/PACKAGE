@@ -1,9 +1,9 @@
 NAME=udev
 TAR_NAME=systemd
 DESCRIPTION="Dynamically creates device nodes"
-VERSION="256.4"
-ABOSULTE_VERSION=329218
-URL="https://github.com/systemd/systemd/archive/v256.4/systemd-256.4.tar.gz"
+VERSION="257.3"
+ABOSULTE_VERSION=65795
+URL="https://github.com/systemd/systemd/archive/v257.3/systemd-257.3.tar.gz"
 BUILD_DEPENDS=(meson ninja gcc binutils)
 DEPENDS=(glibc udev-lfs)
 OPTDEPENDS=(systemd-man-pages)
@@ -11,10 +11,12 @@ PATCHES=()
 METAPACKAGE=false
 
 prepare() {
-    sed -i -e 's/GROUP="render"/GROUP="video"/' \
-           -e 's/GROUP="sgx", //' rules.d/50-udev-default.rules.in
-    sed '/systemd-sysctl/s/^/#/' -i rules.d/99-systemd.rules.in
-    sed '/NETWORK_DIRS/s/systemd/udev/' -i src/basic/path-lookup.h
+    sed -e 's/GROUP="render"/GROUP="video"/' \
+        -e 's/GROUP="sgx", //'               \
+        -i rules.d/50-udev-default.rules.in
+    sed -i '/systemd-sysctl/s/^/#/' rules.d/99-systemd.rules.in
+    sed -e '/NETWORK_DIRS/s/systemd/udev/' \
+        -i src/libsystemd/sd-network/network-util.h
     mkdir -p build
     cd       build
 
@@ -27,15 +29,15 @@ prepare() {
           -D logind=false           \
           -D vconsole=false || return 1
     export udev_helpers=$(grep "'name' :" ../src/udev/meson.build | \
-                      awk '{print $3}' | tr -d ",'" | grep -v 'udevadm')
+                          awk '{print $3}' | tr -d ",'" | grep -v 'udevadm')
     return $?
 }
 
 build() {
     ninja udevadm systemd-hwdb                                           \
-        $(ninja -n | grep -Eo '(src/(lib)?udev|rules.d|hwdb.d)/[^ ]*') \
-        $(realpath libudev.so --relative-to .)                         \
-        $udev_helpers
+          $(ninja -n | grep -Eo '(src/(lib)?udev|rules.d|hwdb.d)/[^ ]*') \
+          $(realpath libudev.so --relative-to .)                         \
+          $udev_helpers
     return $?
 }
 

@@ -1,8 +1,8 @@
 NAME=curl
 DESCRIPTION="Command-line tool for transferring data with URL syntax"
-VERSION="8.12.0"
+VERSION="8.12.1"
 ABOSULTE_VERSION=527360
-URL="https://curl.se/download/curl-8.12.0.tar.xz"
+URL="https://curl.se/download/curl-8.12.1.tar.xz"
 BUILD_DEPENDS=(make gcc binutils libpsl)
 DEPENDS=(glibc make-ca)
 OPTDEPENDS=(libidn2)
@@ -13,7 +13,6 @@ prepare() {
     ./configure --prefix=/usr                           \
                 --disable-static                        \
                 --with-openssl                          \
-                --enable-threaded-resolver              \
                 --with-ca-path=/etc/ssl/certs
     return $?
 }
@@ -36,7 +35,7 @@ postinst() {
                 -name \*.3       -o  \
                 -name CMakeLists.txt \) -delete &&
 
-    cp -v -R docs -T /usr/share/doc/curl-8.9.1
+    cp -v -R docs -T /usr/share/doc/curl-$VERSION
     return 0
 }
 

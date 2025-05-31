@@ -1,8 +1,8 @@
 NAME=libtool
 DESCRIPTION="Generic library support script"
-VERSION="2.4.7"
-ABOSULTE_VERSION=132103
-URL="https://ftp.gnu.org/gnu/libtool/libtool-2.4.7.tar.xz"
+VERSION="2.5.4"
+ABOSULTE_VERSION=132356
+URL="https://ftp.gnu.org/gnu/libtool/libtool-2.5.4.tar.xz"
 BUILD_DEPENDS=(make binutils)
 DEPENDS=(glibc gcc file)
 OPTDEPENDS=()

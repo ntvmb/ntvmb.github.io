@@ -1,8 +1,8 @@
 NAME=man-pages
 DESCRIPTION="Manual pages for using a GNU/Linux system"
-VERSION="6.9.1"
-ABOSULTE_VERSION=395521
-URL="https://www.kernel.org/pub/linux/docs/man-pages/man-pages-6.9.1.tar.xz"
+VERSION="6.12"
+ABOSULTE_VERSION=396288
+URL="https://www.kernel.org/pub/linux/docs/man-pages/man-pages-6.12.tar.xz"
 BUILD_DEPENDS=()
 DEPENDS=()
 OPTDEPENDS=()
@@ -19,7 +19,7 @@ build() {
 }
 
 do_install() {
-    make prefix=/usr install
+    make -R GIT=false prefix=/usr install
     return 0
 }
 

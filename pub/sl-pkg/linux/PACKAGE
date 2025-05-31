@@ -1,8 +1,8 @@
 NAME=linux
 DESCRIPTION="Linux kernel"
-VERSION="6.13.5"
-ABOSULTE_VERSION=396549
-URL="https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.13.5.tar.xz"
+VERSION="6.15.0"
+ABOSULTE_VERSION=397056
+URL="https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.15.tar.xz"
 BUILD_DEPENDS=(make gcc binutils bc bison flex gzip libelf ncurses openssl perl zstd xz gettext)
 DEPENDS=(kmod)
 OPTDEPENDS=(grub linux-headers)
@@ -17,7 +17,7 @@ prepare() {
     echo "1) use current configuration"
     echo "2) edit current configuration"
     echo "3) make a new configuration"
-    echo "4) abort"
+    echo -e "4) abort\a"
     read choice
     case $choice in
         1)
@@ -64,7 +64,7 @@ do_install() {
     # make install will complain about not being able to find LILO
     # but even then it will still return 0
     make INSTALL_PATH=/boot install || return 1
-    cp -iv .config /boot/config
+    cp -iv .config /boot/config-$VERSION
     cp -r Documentation -T /usr/share/doc/linux-$VERSION
     return 0
 }

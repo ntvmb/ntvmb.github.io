@@ -1,39 +1,34 @@
 NAME=kmod
 DESCRIPTION="Tools for managing Linux kernel modules"
-VERSION=33
+VERSION=34
 ABOSULTE_VERSION=$VERSION
-URL="https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-33.tar.xz"
-BUILD_DEPENDS=(make gcc binutils)
+URL="https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-34.tar.xz"
+BUILD_DEPENDS=(gcc binutils meson ninja)
 DEPENDS=(glibc xz openssl zstd)
 OPTDEPENDS=()
 PATCHES=()
 METAPACKAGE=false
 
 prepare() {
-    ./configure --prefix=/usr     \
-                --sysconfdir=/etc \
-                --with-openssl    \
-                --with-xz         \
-                --with-zstd       \
-                --with-zlib       \
-                --disable-manpages
+    mkdir -p build
+    cd       build
+
+    meson setup --prefix=/usr ..    \
+                --sbindir=/usr/sbin \
+                --buildtype=release \
+                -D manpages=false
     return $?
 }
 
 build() {
-    make
-    # The test suite requires raw kernel headers, not the sanitized ones
-    # from earlier. This is beyond the scope of LFS.
-    # make check
+    ninja
+    # The test suite requires raw kernel headers, not the sanitized ones,
+    # which is beyond the scope of LFS.
     return $?
 }
 
 do_install() {
-    make install
-    for target in depmod insmod modinfo modprobe rmmod; do
-        ln -sfv ../bin/kmod /usr/sbin/$target
-        rm -fv /usr/bin/$target
-    done
+    ninja install
     return $?
 }
 

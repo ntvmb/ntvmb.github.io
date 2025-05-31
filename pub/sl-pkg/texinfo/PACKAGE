@@ -1,8 +1,8 @@
 NAME=texinfo
 DESCRIPTION="Documentation system for online information and printed output"
-VERSION="7.1"
-ABOSULTE_VERSION=459008
-URL="https://ftp.gnu.org/gnu/texinfo/texinfo-7.1.tar.xz"
+VERSION="7.2"
+ABOSULTE_VERSION=459264
+URL="https://ftp.gnu.org/gnu/texinfo/texinfo-7.2.tar.xz"
 BUILD_DEPENDS=(make)
 DEPENDS=(perl libxml-parser-perl)
 OPTDEPENDS=()

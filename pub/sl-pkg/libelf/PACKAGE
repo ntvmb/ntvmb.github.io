@@ -1,9 +1,9 @@
 NAME=libelf
 TAR_NAME=elfutils
 DESCRIPTION="Library to read and write ELF files"
-VERSION="0.191"
-ABOSULTE_VERSION=191
-URL="https://sourceware.org/ftp/elfutils/0.191/elfutils-0.191.tar.bz2"
+VERSION="0.192"
+ABOSULTE_VERSION=192
+URL="https://sourceware.org/ftp/elfutils/0.192/elfutils-0.192.tar.bz2"
 BUILD_DEPENDS=(make gcc binutils bzip2)
 DEPENDS=(glibc zstd zlib)
 OPTDEPENDS=()

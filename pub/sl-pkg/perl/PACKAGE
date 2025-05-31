@@ -1,8 +1,8 @@
 NAME=perl
 DESCRIPTION="Perl scripting language"
-VERSION="5.40.0"
+VERSION="5.40.2"
 ABOSULTE_VERSION=337920
-URL="https://www.cpan.org/src/5.0/perl-5.40.0.tar.xz"
+URL="https://www.cpan.org/src/5.0/perl-5.40.2.tar.xz"
 BUILD_DEPENDS=(make gcc binutils)
 DEPENDS=(glibc libxcrypt)
 OPTDEPENDS=()

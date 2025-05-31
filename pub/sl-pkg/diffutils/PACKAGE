@@ -1,8 +1,8 @@
 NAME=diffutils
 DESCRIPTION="File comparison utilities"
-VERSION="3.10"
-ABOSULTE_VERSION=778
-URL="https://ftp.gnu.org/gnu/diffutils/diffutils-3.10.tar.xz"
+VERSION="3.11"
+ABOSULTE_VERSION=779
+URL="https://ftp.gnu.org/gnu/diffutils/diffutils-3.11.tar.xz"
 BUILD_DEPENDS=(make gcc binutils)
 DEPENDS=(glibc)
 OPTDEPENDS=()

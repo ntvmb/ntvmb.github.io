@@ -1,8 +1,8 @@
 NAME=inetutils
 DESCRIPTION="Base networking utilities"
-VERSION="2.5"
-ABOSULTE_VERSION=517
-URL="https://ftp.gnu.org/gnu/inetutils/inetutils-2.5.tar.xz"
+VERSION="2.6"
+ABOSULTE_VERSION=518
+URL="https://ftp.gnu.org/gnu/inetutils/inetutils-2.6.tar.xz"
 BUILD_DEPENDS=(make gcc binutils)
 DEPENDS=(glibc)
 OPTDEPENDS=()
@@ -37,6 +37,7 @@ do_install() {
 }
 
 postinst() {
+    # this does not look right but it works
     mv /usr/{,s}bin/ifconfig
     return 0
 }

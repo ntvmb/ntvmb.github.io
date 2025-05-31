@@ -1,8 +1,8 @@
 NAME=less
 DESCRIPTION="Pager program similar to more"
-VERSION=661
+VERSION=668
 ABOSULTE_VERSION=$VERSION
-URL="https://www.greenwoodsoftware.com/less/less-661.tar.gz"
+URL="https://www.greenwoodsoftware.com/less/less-668.tar.gz"
 BUILD_DEPENDS=(make gcc binutils)
 DEPENDS=(glibc ncurses)
 OPTDEPENDS=()

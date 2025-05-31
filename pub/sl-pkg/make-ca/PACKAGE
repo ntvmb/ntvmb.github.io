@@ -1,8 +1,8 @@
 NAME=make-ca
 DESCRIPTION="Generate CA-certificate stores"
-VERSION="1.14"
-ABOSULTE_VERSION=270
-URL="https://github.com/lfs-book/make-ca/archive/v1.14/make-ca-1.14.tar.gz"
+VERSION="1.15"
+ABOSULTE_VERSION=271
+URL="https://github.com/lfs-book/make-ca/archive/v1.15/make-ca-1.15.tar.gz"
 BUILD_DEPENDS=(make)
 DEPENDS=(openssl p11-kit glibc)
 OPTDEPENDS=()

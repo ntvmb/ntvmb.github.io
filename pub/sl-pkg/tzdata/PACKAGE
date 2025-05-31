@@ -1,8 +1,8 @@
 NAME=tzdata
 DESCRIPTION="IANA time zone data"
-VERSION="2024a"
-ABOSULTE_VERSION=32385
-URL="https://www.iana.org/time-zones/repository/releases/tzdata2024a.tar.gz"
+VERSION="2025a"
+ABOSULTE_VERSION=32410
+URL="https://www.iana.org/time-zones/repository/releases/tzdata2025a.tar.gz"
 BUILD_DEPENDS=()
 DEPENDS=(glibc)
 OPTDEPENDS=()

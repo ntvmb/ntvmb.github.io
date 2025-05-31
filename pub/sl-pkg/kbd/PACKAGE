@@ -1,16 +1,16 @@
 NAME=kbd
 DESCRIPTION="Linux console font and keytable utilities"
-VERSION="2.6.4"
-ABOSULTE_VERSION=132612
-URL="https://www.kernel.org/pub/linux/utils/kbd/kbd-2.6.4.tar.xz"
+VERSION="2.7.1"
+ABOSULTE_VERSION=132865
+URL="https://www.kernel.org/pub/linux/utils/kbd/kbd-2.7.1.tar.xz"
 BUILD_DEPENDS=(make gcc binutils patch)
 DEPENDS=(glibc)
 OPTDEPENDS=()
-PATCHES=("https://www.linuxfromscratch.org/patches/lfs/12.2/kbd-2.6.4-backspace-1.patch")
+PATCHES=("https://www.linuxfromscratch.org/patches/lfs/12.3/kbd-2.7.1-backspace-1.patch")
 METAPACKAGE=false
 
 prepare() {
-    patch -Np1 -i ../kbd-2.6.4-backspace-1.patch
+    patch -Np1 -i ../kbd-2.7.1-backspace-1.patch
     sed -i '/RESIZECONS_PROGS=/s/yes/no/' configure
     sed -i 's/resizecons.8 //' docs/man/man8/Makefile.in
     ./configure --prefix=/usr --disable-vlock

@@ -1,8 +1,8 @@
 NAME=binutils
 DESCRIPTION="GNU assembler, linker, and binary utilities."
-VERSION="2.43.1"
-ABOSULTE_VERSION=142081
-URL="https://ftp.gnu.org/gnu/binutils/binutils-2.43.1.tar.xz"
+VERSION="2.44"
+ABOSULTE_VERSION=142336
+URL="https://sourceware.org/pub/binutils/releases/binutils-2.44.tar.xz"
 BUILD_DEPENDS=(make)
 DEPENDS=(glibc gcc)
 OPTDEPENDS=()
@@ -16,7 +16,6 @@ prepare() {
     cd build
     ../configure --prefix=/usr       \
                  --sysconfdir=/etc   \
-                 --enable-gold       \
                  --enable-ld=default \
                  --enable-plugins    \
                  --enable-shared     \
@@ -37,7 +36,7 @@ build() {
         read -p "review test failures? " yn
         case $yn in
             [yY]*)
-                grep '^FAIL:' $(find -name '*.log')
+                grep '^FAIL:' $(find -name '*.log') | less
                 ;;
             *)
                 ;;
@@ -60,7 +59,8 @@ do_install() {
 }
 
 postinst() {
-    rm -fv /usr/lib/lib{bfd,ctf,ctf-nobfd,gprofng,opcodes,sframe}.a
+    rm -rf /usr/lib/lib{bfd,ctf,ctf-nobfd,gprofng,opcodes,sframe}.a \
+           /usr/share/doc/gprofng/
     return 0
 }
 

@@ -1,8 +1,8 @@
 NAME=e2fsprogs
 DESCRIPTION="ext2/3/4 file system utilities"
-VERSION="1.47.1"
-ABOSULTE_VERSION=77569
-URL="https://downloads.sourceforge.net/project/e2fsprogs/e2fsprogs/v1.47.1/e2fsprogs-1.47.1.tar.gz"
+VERSION="1.47.2"
+ABOSULTE_VERSION=77570
+URL="https://downloads.sourceforge.net/project/e2fsprogs/e2fsprogs/v1.47.2/e2fsprogs-1.47.2.tar.gz"
 BUILD_DEPENDS=(make gcc binutils)
 DEPENDS=(glibc)
 OPTDEPENDS=()

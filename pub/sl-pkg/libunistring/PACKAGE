@@ -1,8 +1,8 @@
 NAME=libunistring
 DESCRIPTION="Library for manipulating Unicode strings"
-VERSION="1.2"
-ABOSULTE_VERSION=258
-URL="https://ftp.gnu.org/gnu/libunistring/libunistring-1.2.tar.xz"
+VERSION="1.3"
+ABOSULTE_VERSION=259
+URL="https://ftp.gnu.org/gnu/libunistring/libunistring-1.3.tar.xz"
 BUILD_DEPENDS=(make gcc binutils)
 DEPENDS=(glibc)
 OPTDEPENDS=()

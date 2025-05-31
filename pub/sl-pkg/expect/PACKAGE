@@ -6,7 +6,7 @@ URL="https://prdownloads.sourceforge.net/expect/expect5.45.4.tar.gz"
 BUILD_DEPENDS=(make gcc binutils)
 DEPENDS=(glibc tcl)
 OPTDEPENDS=()
-PATCHES=("https://www.linuxfromscratch.org/patches/lfs/12.2/expect-5.45.4-gcc14-1.patch")
+PATCHES=("https://www.linuxfromscratch.org/patches/lfs/12.3/expect-5.45.4-gcc14-1.patch")
 METAPACKAGE=false
 
 prepare() {

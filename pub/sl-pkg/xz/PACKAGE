@@ -1,8 +1,8 @@
 NAME=xz
 DESCRIPTION="XZ-format compression utilities"
-VERSION="5.6.2"
-ABOSULTE_VERSION=329218
-URL="https://github.com//tukaani-project/xz/releases/download/v5.6.2/xz-5.6.2.tar.xz"
+VERSION="5.8.1"
+ABOSULTE_VERSION=329729
+URL="https://github.com//tukaani-project/xz/releases/download/v5.8.1/xz-5.8.1.tar.xz"
 BUILD_DEPENDS=(make gcc binutils)
 DEPENDS=(glibc)
 OPTDEPENDS=()
@@ -12,7 +12,7 @@ METAPACKAGE=false
 prepare() {
     ./configure --prefix=/usr    \
                 --disable-static \
-                --docdir=/usr/share/doc/xz-5.6.2
+                --docdir=/usr/share/doc/xz-$VERSION
     return $?
 }
 

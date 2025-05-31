@@ -1,8 +1,8 @@
 NAME=python-wheel
 DESCRIPTION="Built-package format for Python"
-VERSION="0.44.0"
-ABOSULTE_VERSION=11264
-URL="https://pypi.org/packages/source/w/wheel/wheel-0.44.0.tar.gz"
+VERSION="0.45.1"
+ABOSULTE_VERSION=11521
+URL="https://pypi.org/packages/source/w/wheel/wheel-0.45.1.tar.gz"
 BUILD_DEPENDS=()
 DEPENDS=(python flit-core)
 OPTDEPENDS=()

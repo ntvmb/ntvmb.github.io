@@ -1,24 +1,24 @@
 NAME=glibc
 DESCRIPTION="GNU C Library: Shared Libraries"
-VERSION="2.40"
-ABOSULTE_VERSION=576
-URL="https://ftp.gnu.org/gnu/glibc/glibc-2.40.tar.xz"
+VERSION="2.41"
+ABOSULTE_VERSION=577
+URL="https://ftp.gnu.org/gnu/glibc/glibc-2.41.tar.xz"
 BUILD_DEPENDS=(patch make gcc binutils linux-headers)
 DEPENDS=()
-OPTDEPENDS=()
-PATCHES=("https://lfs.gnlug.org/pub/lfs/lfs-packages/12.2/glibc-2.40-fhs-1.patch")
+OPTDEPENDS=(libidn2)
+PATCHES=("https://www.linuxfromscratch.org/patches/lfs/12.3/glibc-2.41-fhs-1.patch")
 METAPACKAGE=false
 ESSENTIAL=true
 REQUIRES_MANUAL_INTERACTION=true
 
 prepare() {
-    patch -Np1 -i ../glibc-2.40-fhs-1.patch
+    patch -Np1 -i ../glibc-2.41-fhs-1.patch
     mkdir build
     cd build
     echo "rootsbindir=/usr/sbin" > configparms
     ../configure --prefix=/usr                            \
                  --disable-werror                         \
-                 --enable-kernel=4.19                     \
+                 --enable-kernel=5.4                     \
                  --enable-stack-protector=strong          \
                  --disable-nscd                           \
                  libc_cv_slibdir=/usr/lib

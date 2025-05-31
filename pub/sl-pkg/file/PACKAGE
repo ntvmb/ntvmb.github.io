@@ -1,8 +1,8 @@
 NAME=file
 DESCRIPTION='Recognize the type of data in a file using "magic" numbers'
-VERSION="5.45"
-ABOSULTE_VERSION=1325
-URL="https://astron.com/pub/file/file-5.45.tar.gz"
+VERSION="5.46"
+ABOSULTE_VERSION=1326
+URL="https://astron.com/pub/file/file-5.46.tar.gz"
 BUILD_DEPENDS=(make gcc binutils)
 DEPENDS=(glibc)
 OPTDEPENDS=()
