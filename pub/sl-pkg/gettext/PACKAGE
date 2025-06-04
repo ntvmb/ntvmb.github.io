@@ -8,6 +8,7 @@ DEPENDS=(glibc acl attr ncurses gcc)
 OPTDEPENDS=()
 PATCHES=()
 METAPACKAGE=false
+REQUIRES_MANUAL_INTERACTION=true
 
 prepare() {
     ./configure --prefix=/usr    \

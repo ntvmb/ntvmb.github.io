@@ -8,6 +8,7 @@ DEPENDS=(glibc m4)
 OPTDEPENDS=()
 PATCHES=()
 METAPACKAGE=false
+REQUIRES_MANUAL_INTERACTION=true
 
 prepare() {
     ./configure --prefix=/usr --docdir=/usr/share/doc/bison-$VERSION

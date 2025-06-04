@@ -8,6 +8,7 @@ DEPENDS=(glibc libxcrypt)
 OPTDEPENDS=()
 PATCHES=("https://www.linuxfromscratch.org/patches/lfs/development/perl-5.40.2-upstream_fix-1.patch")
 METAPACKAGE=false
+REQUIRES_MANUAL_INTERACTION=true
 
 prepare() {
     patch -Np1 -i ../perl-5.40.2-upstream_fix-1.patch

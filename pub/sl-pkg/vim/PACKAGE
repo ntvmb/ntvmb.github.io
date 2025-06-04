@@ -8,6 +8,7 @@ DEPENDS=(glibc acl ncurses)
 OPTDEPENDS=()
 PATCHES=()
 METAPACKAGE=false
+REQUIRES_MANUAL_INTERACTION=true
 
 prepare() {
     echo '#define SYS_VIMRC_FILE "/etc/vimrc"' >> src/feature.h
