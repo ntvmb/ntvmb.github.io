@@ -6,10 +6,11 @@ URL="https://www.python.org/ftp/python/3.13.3/Python-3.13.3.tar.xz"
 BUILD_DEPENDS=(make gcc binutils)
 DEPENDS=(glibc expat zlib tzdata openssl)
 OPTDEPENDS=()
-PATCHES=()
+PATCHES=("https://www.linuxfromscratch.org/patches/blfs/svn/Python-3.13.3-security_fixes-1.patch")
 METAPACKAGE=false
 
 prepare() {
+    patch -Np1 -i ../Python-3.13.3-security_fixes-1.patch
     ./configure --prefix=/usr        \
                 --enable-shared      \
                 --with-system-expat  \

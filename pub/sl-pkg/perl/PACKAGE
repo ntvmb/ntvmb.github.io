@@ -1,15 +1,16 @@
 NAME=perl
 DESCRIPTION="Perl scripting language"
-VERSION="5.40.2"
+VERSION="5.40.2-1"
 ABOSULTE_VERSION=337920
 URL="https://www.cpan.org/src/5.0/perl-5.40.2.tar.xz"
 BUILD_DEPENDS=(make gcc binutils)
 DEPENDS=(glibc libxcrypt)
 OPTDEPENDS=()
-PATCHES=()
+PATCHES=("https://www.linuxfromscratch.org/patches/lfs/development/perl-5.40.2-upstream_fix-1.patch")
 METAPACKAGE=false
 
 prepare() {
+    patch -Np1 -i ../perl-5.40.2-upstream_fix-1.patch
     export BUILD_ZLIB=False
     export BUILD_BZIP2=0
     sh Configure -des                                          \
