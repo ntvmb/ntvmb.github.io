@@ -11,10 +11,11 @@ METAPACKAGE=false
 
 prepare() {
     patch -Np1 -i ../Python-3.13.3-security_fixes-1.patch
-    ./configure --prefix=/usr        \
-                --enable-shared      \
-                --with-system-expat  \
-                --enable-optimizations
+    ./configure --prefix=/usr          \
+                --enable-shared        \
+                --with-system-expat    \
+                --enable-optimizations \
+                --without-static-libpython
     return $?
 }
 
