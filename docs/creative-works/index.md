@@ -16,4 +16,5 @@ What will you read next?
 [One Day in December](one_day_in_december) (written December 2024)  
 [Without Warning](without_warning) (written December 2024)  
 [The Sounding](the_sounding) (written April 2025)  
-[To All My Christian Friends and Family](to_all_my_christian_friends) (written May 2025)
+[To All My Christian Friends and Family](to_all_my_christian_friends) (written May 2025)  
+[Haiku collection](haiku) (updated June 13 2025)
