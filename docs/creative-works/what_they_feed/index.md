@@ -1,7 +1,7 @@
 # What They Feed
 
-What was long warned by intellectuals:  
-Attempts to make tyranny perpetual;  
+What was long warned by intellectuals--  
+Attempts to make tyranny perpetual--  
 An irrational public didn't heed,  
 So now through violence they feed.
 
