@@ -17,4 +17,5 @@ What will you read next?
 [Without Warning](without_warning) (written December 2024)  
 [The Sounding](the_sounding) (written April 2025)  
 [To All My Christian Friends and Family](to_all_my_christian_friends) (written May 2025)  
+[What They Feed](what_they_feed) (written July 2025)  
 [Haiku collection](haiku) (updated June 13 2025)
