@@ -23,7 +23,7 @@ build() {
 }
 
 do_install() {
-    if [ basename $(pwd) = "build" ]; then cd ..; fi
+    if [ "$(basename $(pwd))" = "build" ]; then cd ..; fi
     make BUILD_STATIC=no PREFIX=/usr install
     return $?
 }
