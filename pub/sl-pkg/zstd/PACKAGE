@@ -14,12 +14,16 @@ prepare() {
 }
 
 build() {
+    # because there's a 'build' dir in the zstd tarball, sl-pkg will attempt
+    # to build from this directory, but we need to be in the tarball root
+    if [ "$(basename $(pwd))" = "build" ]; then cd ..; fi
     make prefix=/usr || return 1
     make check
     return $?
 }
 
 do_install() {
+    if [ "$(basename $(pwd))" = "build" ]; then cd ..; fi
     make prefix=/usr install
     return $?
 }
