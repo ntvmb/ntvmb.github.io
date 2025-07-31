@@ -14,12 +14,16 @@ prepare() {
 }
 
 build() {
+    # because there's a 'build' dir in the lz4 tarball, sl-pkg will attempt
+    # to build from this directory, but we need to be in the tarball root
+    if [ basename $(pwd) = "build" ]; then cd ..; fi
     make BUILD_STATIC=no PREFIX=/usr || return 1
     make -j1 check
     return $?
 }
 
 do_install() {
+    if [ basename $(pwd) = "build" ]; then cd ..; fi
     make BUILD_STATIC=no PREFIX=/usr install
     return $?
 }
