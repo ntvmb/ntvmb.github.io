@@ -19,6 +19,7 @@ prepare() {
 }
 
 build() {
+    declare -g SRCDIR=$(pwd)
     cd unix
     make || return 1
 
