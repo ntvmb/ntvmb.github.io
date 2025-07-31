@@ -19,6 +19,7 @@ prepare() {
 }
 
 build() {
+    cd unix
     make || return 1
 
     sed -e "s|$SRCDIR/unix|/usr/lib|" \
