@@ -1,17 +1,16 @@
 NAME=perl
 DESCRIPTION="Perl scripting language"
-VERSION="5.40.2-1"
-ABOSULTE_VERSION=337920
-URL="https://www.cpan.org/src/5.0/perl-5.40.2.tar.xz"
-BUILD_DEPENDS=(patch make gcc binutils)
+VERSION="5.42.0"
+ABOSULTE_VERSION=338432
+URL="https://www.cpan.org/src/5.0/perl-5.42.0.tar.xz"
+BUILD_DEPENDS=(make gcc binutils)
 DEPENDS=(glibc libxcrypt)
 OPTDEPENDS=()
-PATCHES=("https://www.linuxfromscratch.org/patches/lfs/development/perl-5.40.2-upstream_fix-1.patch")
+PATCHES=()
 METAPACKAGE=false
 REQUIRES_MANUAL_INTERACTION=true
 
 prepare() {
-    patch -Np1 -i ../perl-5.40.2-upstream_fix-1.patch
     export BUILD_ZLIB=False
     export BUILD_BZIP2=0
     sh Configure -des                                          \
@@ -32,6 +31,8 @@ prepare() {
 }
 
 build() {
+    export BUILD_ZLIB=False
+    export BUILD_BZIP2=0
     make || return 1
     echo "note: the test suite is expensive"
     read -p "run test suite? " yn
