@@ -44,6 +44,7 @@ build() {
 }
 
 do_install() {
+    cd unix
     make install
     make install-private-headers
     return $?
