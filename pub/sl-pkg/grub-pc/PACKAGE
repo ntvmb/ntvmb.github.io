@@ -22,6 +22,7 @@ prepare() {
 }
 
 build() {
+    unset {C,CPP,CXX,LD}FLAGS
     make
     # running the test suite is not recommended here as most of the tests
     # depend on packages that aren't available on the base system
