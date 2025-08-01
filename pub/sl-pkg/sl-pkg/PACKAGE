@@ -1,8 +1,8 @@
 NAME=sl-pkg
 DESCRIPTION="Package manager"
-VERSION="0.0.8.5"
-ABOSULTE_VERSION=13
-URL="https://github.com/ntvmb/sl-pkg/archive/refs/tags/a0.0.8.5.tar.gz"
+VERSION="0.0.9"
+ABOSULTE_VERSION=14
+URL="https://github.com/ntvmb/sl-pkg/archive/refs/tags/a0.0.9.tar.gz"
 DEPENDS=(bash coreutils python tar xz gzip sed make less gawk)
 OPTDEPENDS=(git)
 PATCHES=()
