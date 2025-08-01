@@ -14,6 +14,7 @@ prepare() {
     # These variables may affect the build. We must clear these before
     # building, otherwise the package might break.
     unset {C,CPP,CXX,LD}FLAGS
+    echo depends bli part_gpt > grub-core/extra_deps.lst
     ./configure --prefix=/usr          \
                 --sysconfdir=/etc      \
                 --disable-efiemu       \
