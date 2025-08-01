@@ -29,12 +29,14 @@ EOF
 }
 
 build() {
+    if [ "$(basename $(pwd))" = "build" ]; then cd ../p11-build; fi
     ninja || return 1
     LC_ALL=C ninja test
     return $?
 }
 
 do_install() {
+    if [ "$(basename $(pwd))" = "build" ]; then cd ../p11-build; fi
     ninja install &&
     ln -sfv /usr/libexec/p11-kit/trust-extract-compat \
             /usr/bin/update-ca-certificates
