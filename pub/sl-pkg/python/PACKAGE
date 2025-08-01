@@ -19,6 +19,8 @@ prepare() {
 }
 
 build() {
+    # don't let sl-pkg attempt to build from this directory
+    if [ "$(basename $(pwd))" = "build" ]; then cd ..; fi
     make || return 1
     # some tests occasionally hang indefinitely
     # set a time limit for each test case
@@ -27,6 +29,7 @@ build() {
 }
 
 do_install() {
+    if [ "$(basename $(pwd))" = "build" ]; then cd ..; fi
     make install
     return $?
 }
