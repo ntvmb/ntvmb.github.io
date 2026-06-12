@@ -2,9 +2,9 @@
 layout: default
 ---
 
-# Virtual Nate's website
+# Princess Nico's website
 
-Welcome to Virtual Nate's website. This is currently in the early stages of development so don't expect much here.
+Welcome to Princess Nico's website. This is currently in the early stages of development so don't expect much here.
 
 Projects:
 
@@ -15,7 +15,6 @@ Projects:
 Other links:  
 [Files (not accessible yet)](./pub)  
 [Github](https://github.com/ntvmb)  
-[Mastodon](https://mastodon.social/@VirtualNate)
 
 More things:  
 [My ventures in writing](docs/creative-works)  
