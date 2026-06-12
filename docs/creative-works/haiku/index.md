@@ -1,4 +1,4 @@
-# Virtual Nate's Haiku
+# Princess Nico's Haiku
 
 *This is a collection of various haiku I've written.*
 *For more information regarding haiku in general,*
