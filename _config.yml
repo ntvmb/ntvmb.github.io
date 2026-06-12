@@ -4,7 +4,7 @@ plugins:
 include:
 - .well-known
 - favicon.ico
-title: Virtual Nate's website
+title: Princess Nico's website
 description: A site for some of my random things.
 show_downloads: false
 defaults:
